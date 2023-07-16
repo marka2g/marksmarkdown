@@ -1,0 +1,17 @@
+0000000000000000000000000000000000000000 a7d3bc58af8951ac16b3332292165d22ccf0541c Mark Sadegi <mark.sadegi@gmail.com> 1689473963 -0700	commit (initial): initial commit
+a7d3bc58af8951ac16b3332292165d22ccf0541c 78804bfc7abb117b4696b5833a26dd8f9b3f5e80 Mark Sadegi <mark.sadegi@gmail.com> 1689476517 -0700	commit: add a bit more initial commit cleanup
+78804bfc7abb117b4696b5833a26dd8f9b3f5e80 78804bfc7abb117b4696b5833a26dd8f9b3f5e80 Mark Sadegi <mark.sadegi@gmail.com> 1689476538 -0700	checkout: moving from main to implement-tag-search
+78804bfc7abb117b4696b5833a26dd8f9b3f5e80 78804bfc7abb117b4696b5833a26dd8f9b3f5e80 Mark Sadegi <mark.sadegi@gmail.com> 1689535935 -0700	reset: moving to HEAD
+78804bfc7abb117b4696b5833a26dd8f9b3f5e80 78804bfc7abb117b4696b5833a26dd8f9b3f5e80 Mark Sadegi <mark.sadegi@gmail.com> 1689536253 -0700	checkout: moving from implement-tag-search to main
+78804bfc7abb117b4696b5833a26dd8f9b3f5e80 78804bfc7abb117b4696b5833a26dd8f9b3f5e80 Mark Sadegi <mark.sadegi@gmail.com> 1689536278 -0700	reset: moving to HEAD
+78804bfc7abb117b4696b5833a26dd8f9b3f5e80 78804bfc7abb117b4696b5833a26dd8f9b3f5e80 Mark Sadegi <mark.sadegi@gmail.com> 1689536309 -0700	checkout: moving from main to prep-for-lift-off
+78804bfc7abb117b4696b5833a26dd8f9b3f5e80 c371d09039ba0636cddaff9cbf73b31f4c0b9d59 Mark Sadegi <mark.sadegi@gmail.com> 1689536729 -0700	commit: fix duplicate css ids on page between mobile and desktop
+c371d09039ba0636cddaff9cbf73b31f4c0b9d59 78804bfc7abb117b4696b5833a26dd8f9b3f5e80 Mark Sadegi <mark.sadegi@gmail.com> 1689537026 -0700	checkout: moving from prep-for-lift-off to main
+78804bfc7abb117b4696b5833a26dd8f9b3f5e80 c371d09039ba0636cddaff9cbf73b31f4c0b9d59 Mark Sadegi <mark.sadegi@gmail.com> 1689537043 -0700	merge prep-for-lift-off: Fast-forward
+c371d09039ba0636cddaff9cbf73b31f4c0b9d59 c371d09039ba0636cddaff9cbf73b31f4c0b9d59 Mark Sadegi <mark.sadegi@gmail.com> 1689537067 -0700	checkout: moving from main to prep-for-lift-off
+c371d09039ba0636cddaff9cbf73b31f4c0b9d59 acda3a54ced959abff57a1356849b01dd410803b Mark Sadegi <mark.sadegi@gmail.com> 1689537478 -0700	commit: run mix format
+acda3a54ced959abff57a1356849b01dd410803b 76a5597c412b7ab7d4b73554528dad063fd58f56 Mark Sadegi <mark.sadegi@gmail.com> 1689541200 -0700	commit: add fly docker, toml and github workflow
+76a5597c412b7ab7d4b73554528dad063fd58f56 c371d09039ba0636cddaff9cbf73b31f4c0b9d59 Mark Sadegi <mark.sadegi@gmail.com> 1689541211 -0700	checkout: moving from prep-for-lift-off to main
+c371d09039ba0636cddaff9cbf73b31f4c0b9d59 76a5597c412b7ab7d4b73554528dad063fd58f56 Mark Sadegi <mark.sadegi@gmail.com> 1689541220 -0700	merge prep-for-lift-off: Fast-forward
+76a5597c412b7ab7d4b73554528dad063fd58f56 76a5597c412b7ab7d4b73554528dad063fd58f56 Mark Sadegi <mark.sadegi@gmail.com> 1689541490 -0700	rebase (start): checkout main
+76a5597c412b7ab7d4b73554528dad063fd58f56 76a5597c412b7ab7d4b73554528dad063fd58f56 Mark Sadegi <mark.sadegi@gmail.com> 1689541490 -0700	rebase (finish): returning to refs/heads/main

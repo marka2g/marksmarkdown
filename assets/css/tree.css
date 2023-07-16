@@ -1,0 +1,77 @@
+/* tree - dark */
+
+ul {
+  @apply pl-2 ml-3;
+  list-style: none;
+  line-height: 1.9em;
+}
+
+ul li {
+  @apply relative;
+}
+
+/* any child element that's inside a class of tree */
+ul summary {
+  @apply cursor-pointer;
+}
+
+ul summary::marker,
+ul summary::-webkit-details-marker {
+  @apply hidden;
+}
+
+/* `::` for psuedo selector, `:` for psuedo elements */
+/* verticle lines */
+ul li::before {
+  position: absolute;
+  left: -10px;
+  top: 0px;
+  content: '';
+  width: 8px;
+  height: 1em;
+  border-left: 0.075em solid #444353;
+  border-bottom: 0.075em solid #444353;
+}
+
+ul li::after {
+  position: absolute;
+  left: -10px;
+  bottom: 0px;
+  content: '';
+  width: 8px;
+  height: 100%;
+  border-left: 0.075em solid #444353;
+}
+
+ul li.root-node::before {
+  border-left: none;
+}
+ul li:last-child::after {
+  display: none;
+}
+
+ul summary::before {
+  position: absolute;
+  left: -1.25em;
+  top: 0.5em;
+  content: '+';
+  width: 15px;
+  height: 15px;
+  border-radius: 55em;
+  text-align: center;
+  line-height: 0.9em;
+  @apply bg-fuchsia-600 text-neutral-100;
+}
+
+ul details[open] > summary::before {
+  content: '-';
+  z-index: 10;
+  line-height: 0.9em;
+  @apply bg-my-lime text-neutral-500;
+}
+
+.slug {
+  @apply p-1 pr-2 my-4 rounded-md text-light-teal bg-drk-bk hover:bg-drk-hover;
+}
+
+/* tree - dark - end */

@@ -1,0 +1,173 @@
+<div class="lg:ml-72 xl:ml-80">
+  <div class="relative">
+    <div class="top-0 w-full h-2 bg-white rounded-full inset-x-2 blur-2xl"></div>
+  </div>
+  <header class="border-b contents border-white/10 lg:pointer-events-none lg:fixed lg:inset-0 lg:z-40 lg:flex">
+    <div class="relative">
+      <div class="absolute rounded-full bg-my-lime w-36 h-36 -top-8 left-48 blur-2xl opacity-10">
+      </div>
+    </div>
+    <div class="contents lg:pointer-events-auto lg:block lg:w-80 lg:overflow-y-auto lg:border-r lg:px-6 lg:pb-8 lg:pt-4 lg:border-white/10 xl:w-80 border-b-1 border-white/10">
+      <div class="hidden lg:flex">
+        <a aria-label="Home" href="/">
+          <img class="mr-2 rounded-full" src={~p"/images/my_octocat.png"} width="36" />
+        </a>
+        <span class="pt-2 font-semibold text-md">MarkDown Notes</span>
+      </div>
+      <div class="fixed inset-x-0 top-0 z-50 flex items-center justify-between gap-12 px-4 border-b border-white/10 h-14 ransition bg-drk-bk backdrop-blur sm:px-6 lg:left-80 lg:z-30 lg:px-8 xl:left-80">
+        <div class="absolute inset-x-0 top-full h-px transition bg-white/7.5"></div>
+        <div class="hidden lg:block lg:max-w-md lg:flex-auto">
+          <button
+            type="button"
+            class="focus:[&amp;:not(:focus-visible)]:outline-none hidden h-8 w-full items-center gap-2 rounded-full pl-2 pr-3 text-sm ring-1  transition text-zinc-400 ring-inset ring-white/10 hover:ring-white/20 lg:flex"
+          >
+            <.icon name="hero-magnifying-glass" /> Search for a doc...
+            <kbd class="ml-auto text-2xs text-zinc-500">
+              <kbd class="font-sans">⌘</kbd>
+
+              <kbd class="font-sans">K</kbd>
+            </kbd>
+          </button>
+        </div>
+        <!-- mobile - hamburger -->
+        <div class="flex items-center gap-5 lg:hidden">
+          <button
+            phx-click={show("#mobile-tree-menu")}
+            type="button"
+            class="flex items-center justify-center w-12 h-12 transition rounded-md hover:bg-white/5"
+            aria-label="Toggle navigation"
+          >
+            <svg
+              viewBox="0 0 10 9"
+              fill="none"
+              stroke-linecap="round"
+              aria-hidden="true"
+              class="w-6 stroke-white"
+            >
+              <path d="M.5 1h9M.5 8h9M.5 4.5h9"></path>
+            </svg>
+          </button>
+
+          <a aria-label="Home" href="/">
+            <img class="mr-2 rounded-full" src={~p"/images/my_octocat.png"} width="36" />
+          </a>
+          <span class="pt-2 font-semibold text-md">MarkDown Notes</span>
+        </div>
+
+        <div class="flex items-center gap-5">
+          <%!-- Source button --%>
+          <div class="hidden min-[416px]:contents">
+            <a
+              class="rounded-lg font-bold transition flex items-center gap-3 text-[0.8125rem] text-purp-wht leading-6 py-2 px-2 bg-drk-bk hover:bg-drk-hover -my-1 -mx-1.5"
+              href="https://github.com/marka2g/marks_doc"
+              target="_blank"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" class="w-6 h-6 fill-purp-wht">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12 2C6.477 2 2 6.463 2 11.97c0 4.404 2.865 8.14 6.839 9.458.5.092.682-.216.682-.48 0-.236-.008-.864-.013-1.695-2.782.602-3.369-1.337-3.369-1.337-.454-1.151-1.11-1.458-1.11-1.458-.908-.618.069-.606.069-.606 1.003.07 1.531 1.027 1.531 1.027.892 1.524 2.341 1.084 2.91.828.092-.643.35-1.083.636-1.332-2.22-.251-4.555-1.107-4.555-4.927 0-1.088.39-1.979 1.029-2.675-.103-.252-.446-1.266.098-2.638 0 0 .84-.268 2.75 1.022A9.607 9.607 0 0 1 12 6.82c.85.004 1.705.114 2.504.336 1.909-1.29 2.747-1.022 2.747-1.022.546 1.372.202 2.386.1 2.638.64.696 1.028 1.587 1.028 2.675 0 3.83-2.339 4.673-4.566 4.92.359.307.678.915.678 1.846 0 1.332-.012 2.407-.012 2.734 0 .267.18.577.688.48 3.97-1.32 6.833-5.054 6.833-9.458C22 6.463 17.522 2 12 2Z"
+                >
+                </path>
+              </svg>
+              Source
+            </a>
+          </div>
+
+          <%!-- Résumé button--%>
+          <div class="hidden min-[416px]:contents">
+            <a
+              class="rounded-lg font-bold transition flex items-center gap-3 text-[0.8125rem] text-purp-wht hover:text-light-teal leading-6 py-2 px-2 bg-drk-bk hover:bg-drk-hover -my-1 -mx-1.5"
+              href="https://marksadegi.fly.dev"
+              target="_blank"
+            >
+              Résumé
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <%!-- tree of contents - lg --%>
+      <nav class="hidden lg:mt-10 lg:block">
+        <.live_component
+          module={MarksDownWeb.TreeMenuComponent}
+          id="tree-menu"
+          notes={@tree_of_contents}
+        />
+      </nav>
+    </div>
+
+    <div id="mobile-tree-menu" class="hidden">
+      <div
+        class="relative z-[90]"
+        aria-labelledby="slide-over-title"
+        role="dialog"
+        aria-modal="true"
+      >
+        <div class="fixed inset-0"></div>
+
+        <div class="fixed inset-0 overflow-hidden">
+          <div class="absolute inset-0 overflow-hidden">
+            <div class="fixed inset-y-0 left-0 flex max-w-full pr-10 pointer-events-none">
+              <div class="w-screen max-w-md pointer-events-auto">
+                <div class="flex flex-col h-full py-6 overflow-y-scroll shadow-xl bg-drk-bk w-80">
+                  <div class="px-4 sm:px-6">
+                    <div class="flex items-start justify-between">
+                      <h2
+                        class="text-base font-semibold leading-6 text-off-wht"
+                        id="slide-over-title"
+                      >
+                        Tree of Contents
+                      </h2>
+                      <div class="flex items-center ml-3 h-7">
+                        <button
+                          phx-click={hide("#mobile-tree-menu")}
+                          type="button"
+                          class="rounded-md bg-dark text-off-wht hover:text-toff-wht focus:outline-none focus:ring-2 focus:ring-drk-purp focus:ring-offset-2"
+                        >
+                          <span class="sr-only">Close panel</span>
+                          <svg
+                            class="w-6 h-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="relative flex-1 px-4 mt-6 sm:px-6">
+                    <.live_component
+                      module={MarksDownWeb.TreeMenuComponent}
+                      id="tree-menu-mobile"
+                      notes={@tree_of_contents}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="relative px-4 pt-14 sm:px-6 lg:px-8">
+    <div class="relative">
+      <div class="absolute bg-purple-800 rounded-full w-36 h-36 -top-8 -right-16 blur-2xl opacity-20">
+      </div>
+    </div>
+    <main class="px-8 py-4">
+      <%= @inner_content %>
+    </main>
+    <%!-- <footer class="max-w-2xl pb-16 mx-auto space-y-10 lg:max-w-5xl">
+    </footer> --%>
+  </div>
+</div>
