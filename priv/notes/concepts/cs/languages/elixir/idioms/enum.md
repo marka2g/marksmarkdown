@@ -7,54 +7,36 @@
 }
 ---
 
-## Enum
+<a id="top"></a>
 
-This is not the full list but in general,  **Enum** module functions can be broken down into 3 main categories. _see_ **iex> h Enum. + tab** for a full list.
-* **Cleansing data**
->_`filter()`, `reject()`, `uniq()` and `uniq_by()`_
-* **Massaging data**
-> _`map()`, `group_by()`, `split_with()`, `sort_by()` and  `with_index()`_
-* **Summarizing data**
-> _`reduce()`, `reduce_while()`, `frequencies()` and `frequencies_by()`_
+# Enum
 
-### 1. _**Cleansing data**_ 
-* `Enum.filter()`
+This is not the full list but in general, **Enum** module functions can be broken down into 3 main categories. _see_ **iex> h Enum. + tab** for a full list.
+* [**1. Cleansing data**](#cleansing-data)
+>_[`filter()`](#filter), [`reject()`](#reject), [`uniq()`](#uniq) and [`uniq_by()`](#uniq-by)_
+* [**2. Massaging data**](#massaging-data)
+> _[`map()`](#map), [`group_by()`](#group-by), [`split_with()`](#split-with), [`sort_by()`](#sort-by) and  [`with_index()`](#with-index)_
+* [**3. Summarizing data**](#summarizing-data)
+> _[`reduce()`](#reduce), [`reduce_while()`](#reduce-with), [`frequencies()`](#frequencies) and [`frequencies_by()`](#frequencies-by)_
+
+
+## Data Setup
+
+<a id="languages"></a>
+
+### languages list of maps
 >```elixir
->langs = [
+> #data setup
+>languages = [
 >  %{language: "Elixir", type: :concurrent},
 >  %{language: "Ruby", type: :not_concurrent},
 >  %{language: "Rust", type: :concurrent},
 >]
->Enum.filter(langs, fn 
->   %{type: :concurrent} -> true
->   _ -> false
->end)
->#[
->#  %{language: "Elixir", type: :concurrent},
->#  %{language: "Rust", type: :concurrent}
->#]
 >```
-* `Enum.reject()`
->```elixir
->Enum.reject(langs, fn lang ->
->  match?(%{type: :not_concurrent}, lang)
->end)
->#[
->#  %{language: "Elixir", type: :concurrent},
->#  %{language: "Rust", type: :concurrent}
->#]
->
-># Enum.filter using a guard `when`
->Enum.filter(langs, fn
->  %{language: lang} when lang in ["Rust", "Ruby"] -> true
->  _ -> false
->end)
->#[
->#  %{language: "Rust", type: :concurrent}
->#  %{language: "Ruby", type: :not_concurrent},
->#]
->```
-* `Enum.uniq()`
+
+<a id="dogs"></a>
+
+### dogs list of maps
 >```elixir
 >dogs =
 >  [
@@ -66,6 +48,74 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >    %{id: 2, breed: "Pyrenees"}, 
 >    %{id: 3, breed: "Labrador"}
 >  ]
+>```
+
+<a id="guitars"></a>
+
+### guitars list of maps
+>```elixir
+>guitars = [
+>   %{year: 1967, make: "Gibson", model: "Les Paul"},
+>   %{year: 2020, make: "Fender", model: "Stratocaster"}, 
+>   %{year: 1994, make: "Martin", model: "D-18"},
+>   %{year: 2000, make: "Taylor", model: "D-28"},
+>   %{year: 2014, make: "PRS", model: "Custom 24 Floyd"}, 
+>   %{year: 2023, make: "PRS", model: "McCarty 594 Hollowbody II"}, 
+>   %{year: 1997, make: "Parker", model: "Fly Deluxe"},
+>   %{make: "Parker", model: "Fly Deluxe"},
+>]
+>
+>```
+
+
+<a id="cleansing-data"></a>
+
+## _**1. Cleansing data**_ 
+
+<a id="filter"></a>
+
+* ### `Enum.filter()` [**⬆︎**](#top)
+>```elixir
+>Enum.filter(languages, fn 
+>   %{type: :concurrent} -> true
+>   _ -> false
+>end)
+>#[
+>#  %{language: "Elixir", type: :concurrent},
+>#  %{language: "Rust", type: :concurrent}
+>#]
+>```
+> [languages list of maps](#languages)
+
+
+<a id="reject"></a>
+
+* ### `Enum.reject()` [**⬆︎**](#top)
+>```elixir
+>Enum.reject(languages, fn lang ->
+>  match?(%{type: :not_concurrent}, lang)
+>end)
+>#[
+>#  %{language: "Elixir", type: :concurrent},
+>#  %{language: "Rust", type: :concurrent}
+>#]
+>
+># Enum.filter using a when guard
+>Enum.filter(languages, fn
+>  %{language: lang} when lang in ["Rust", "Ruby"] -> true
+>  _ -> false
+>end)
+>#[
+>#  %{language: "Rust", type: :concurrent}
+>#  %{language: "Ruby", type: :not_concurrent},
+>#]
+>```
+> [languages list of maps](#languages)
+
+<a id="uniq"></a>
+
+* ### `Enum.uniq()` [**⬆︎**](#top)
+>```elixir
 >Enum.uniq(dogs)
 >#[
 >#  %{breed: "Pit Bull", id: 1},
@@ -75,7 +125,11 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  %{breed: "Labrador", id: 3}
 >#]
 >```
-* `Enum.uniq_by()`
+> [dogs list of maps](#dogs)
+
+<a id="uniq-by"></a>
+
+* ### `Enum.uniq_by()` [**⬆︎**](#top)
 >```elixir
 >Enum.uniq_by(dogs, fn dog -> 
 >  dog.id
@@ -94,22 +148,18 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  %{breed: "Labrador", id: 3}
 >#]
 >```
+> [dogs list of maps](#dogs)
 
-### 2. _**Massaging data**_
-* `Enum.map()`
+
+<a id="massaging-data"></a>
+
+## 2. _**Massaging data**_
+
+<a id="map"></a>
+
+* ### `Enum.map()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory = [
->   %{year: 1967, make: "Gibson", model: "Les Paul"},
->   %{year: 2020, make: "Fender", model: "Stratocaster"}, 
->   %{year: 1994, make: "Martin", model: "D-18"},
->   %{year: 2000, make: "Taylor", model: "D-28"},
->   %{year: 2014, make: "PRS", model: "Custom 24 Floyd"}, 
->   %{year: 2023, make: "PRS", model: "McCarty 594 Hollowbody II"}, 
->   %{year: 1997, make: "Parker", model: "Fly Deluxe"},
->   %{make: "Parker", model: "Fly Deluxe"},
->]
->
->guitars_inventory
+>guitars
 >|> Enum.map(fn
 >    %{year: year, make: make, model: model} = entry
 >    when not is_nil(year) and not is_nil(make) and not is_nil(model) ->
@@ -131,9 +181,14 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  "1997 Parker Fly Deluxe"
 >#]
 >```
-* `Enum.group_by()`
+> [guitars list of maps](#guitars)
+
+
+<a id="group-by"></a>
+
+* ### `Enum.group_by()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory
+>guitars
 >|> Enum.group_by(fn
 >     %{make: make} -> make
 >end)
@@ -152,9 +207,13 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  "Taylor" => [%{make: "Taylor", model: "D-28", year: 2000}]
 >#}
 >```
-* `Enum.split_with()`
+> [guitars list of maps](#guitars)
+
+<a id="split-with"></a>
+
+* ### `Enum.split_with()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory
+>guitars
 >|> Enum.split_with(fn guitar ->
 >    Map.has_key?(guitar, :year)
 >end)
@@ -171,10 +230,13 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  [%{make: "Parker", model: "Fly Deluxe"}]
 >#}
 >```
+> [guitars list of maps](#guitars)
 
-* `Enum.sort_by()`
+<a id="sort-by"></a>
+
+* ### `Enum.sort_by()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory
+>guitars
 >|> Enum.sort_by(fn
 >  %{year: year} -> year
 >  _ -> nil
@@ -198,11 +260,17 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  "8, Parker Fly Deluxe"
 >#]
 >```
+> [guitars list of maps](#guitars)
 
-### 3. _**Summarizing data**_
-* `Enum.reduce()` _with MapSet.new()_
+<a id="summarizing-data"></a>
+
+## 3. _**Summarizing data**_ 
+
+<a id="reduce"></a>
+
+* ### `Enum.reduce()` _with MapSet.new()_
 >```elixir
->guitars_inventory
+>guitars
 >|> Enum.reduce(MapSet.new(), fn %{make: make}, acc ->
 >     MapSet.put(acc, make)
 >end)
@@ -210,9 +278,13 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >
 >#["Fender", "Gibson", "Martin", "PRS", "Parker", "Taylor"]
 >```
-* `Enum.reduce_while()`
+> [guitars list of maps](#guitars)
+
+<a id="reduce-while"></a>
+
+* ### `Enum.reduce_while()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory
+>guitars
 >|> Enum.reduce_while(MapSet.new(), fn
 >    %{year: year}, acc -> 
 >      {:cont, MapSet.put(acc, year)}
@@ -221,9 +293,12 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >end)
 >#{:error, "Missing year"}
 >```
-* `Enum.frequencies()`
+
+<a id="frequencies"></a>
+
+* ### `Enum.frequencies()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory
+>guitars
 >|> Enum.map(fn %{make: make} -> make end)
 >|> Enum.frequencies()
 >#%{
@@ -235,9 +310,13 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  "Taylor" => 1
 >#}
 >```
-* `Enum.frequencies_by()`
+> [guitars list of maps](#guitars)
+
+<a id="frequencies-by"></a>
+
+* ### `Enum.frequencies_by()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory
+>guitars
 >|> Enum.map(fn %{make: make} -> make end)
 >|> Enum.frequencies_by(fn guitar -> 
 >    String.downcase(guitar)
@@ -251,3 +330,4 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  "taylor" => 1
 >#}
 >```
+> [guitars list of maps](#guitars)

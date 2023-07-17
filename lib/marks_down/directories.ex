@@ -1,6 +1,6 @@
 defmodule MarksDown.Directories do
   @moduledoc """
-  Entry point
+  Maps the directories and markdown files and contructs a tree data structure
   """
   alias MarksDown.Directories.{Tree, Slug}
 

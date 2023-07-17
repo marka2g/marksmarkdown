@@ -30,4 +30,34 @@ ul.note-item {
   @apply leading-8;
 }
 
+#raw h1,
+h2,
+h3 {
+  @apply font-semibold;
+}
+
+#raw h1,
+h2,
+h3 {
+  @apply my-2;
+}
+
+#raw h1 {
+  @apply mb-2 text-3xl;
+}
+#raw h2 {
+  @apply mt-4 text-2xl;
+}
+#raw h3 {
+  @apply text-xl;
+}
+
+#raw p {
+  @apply pb-2;
+}
+
+#raw a {
+  @apply italic hover:underline hover:text-light-teal;
+}
+
 /* dark theme - end */
