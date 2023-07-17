@@ -26,4 +26,8 @@ ul.note-item {
   @apply pl-0 ml-0;
 }
 
+#raw {
+  @apply leading-8;
+}
+
 /* dark theme - end */

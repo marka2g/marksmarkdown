@@ -50,10 +50,10 @@ defmodule MarksDown.Directories do
   end
 
   # slug
-  def add_child([], _slug, root), do: root
+  defp add_child([], _slug, root), do: root
 
   # directory
-  def add_child([parent | rest], slug, root) do
+  defp add_child([parent | rest], slug, root) do
     tree =
       case Map.get(root.children, Path.basename(parent)) do
         nil ->
@@ -87,6 +87,7 @@ defmodule MarksDown.Directories do
     case parent == slug_parent(slug.path) do
       true ->
         File.ls!(dir_path)
+        |> Enum.filter(&String.contains?(&1, ".md"))
         |> Enum.reduce_while([], fn entry, acc ->
           if entry |> String.contains?(".md") do
             {:cont, acc ++ [entry |> String.replace(".md", ".html")]}
