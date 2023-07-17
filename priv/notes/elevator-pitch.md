@@ -8,6 +8,7 @@
 
 ---
 
-If you're like me, one of your most sinister yet silent adversaries is, ...`future self`. Since I take immense pleasure in aquiring freshly minted software engineering skills, I've always longed for a way to effectively summarize and centalize these references. This app will help materialized and prime my collection of learned insights for rapid fire recollection.
+If you're like me, one of your most sinister yet silent adversaries is, ...`future self`. Since I take immense pleasure in acquiring freshly minted software engineering skills, I've always longed for a way to effectively summarize and centralize the notes taken along the way. This app is intended to materialize and prime my collection of learned insights for rapid fire recollection by `future` `self`.
 
-_The examples and code contained are fully permissive in that you are free to use or copy at will. However, a **DISCLAIMER**, … I do not claim any responsibility as to the completeness or correctness of the examples as this is solely for self learning. Often, you will see impartial explinations because the example has been cherry picked to note an area or comcept that needs stickiness. Use the code at your own risk and always test and check what you copy. Thanks!_
+
+_The examples and code contained are fully permissive in that you are free to use or copy at will. However, a **DISCLAIMER**, … I do not claim any responsibility as to the completeness or correctness of the examples as this is solely for self learning. Often, you will see impartial explanations because the example has been cherry picked to note an area or concept that needs stickiness. Use the code at your own risk and always test and check what you copy. Thanks!_
