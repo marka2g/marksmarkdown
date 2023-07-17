@@ -81,12 +81,13 @@ defmodule MarksDown.Directories do
     }
   end
 
-  defp get_slugs(parent, slug) do
+  def get_slugs(parent, slug) do
     dir_path = "#{@root_path}#{parent}"
 
     case parent == slug_parent(slug.path) do
       true ->
         File.ls!(dir_path)
+        |> Enum.filter(&String.contains?(&1, ".md"))
         |> Enum.reduce_while([], fn entry, acc ->
           if entry |> String.contains?(".md") do
             {:cont, acc ++ [entry |> String.replace(".md", ".html")]}
@@ -100,8 +101,8 @@ defmodule MarksDown.Directories do
     end
   end
 
-  defp get_id_from_path(path), do: path_list(path) |> Enum.join("-")
-  defp get_name_from_path(path), do: path_list(path) |> Enum.at(-1)
-  defp path_list(path), do: path |> String.split("/")
-  defp slug_parent(path), do: path_list(path) |> Enum.drop(1) |> Enum.drop(-1) |> Enum.join("/")
+  def get_id_from_path(path), do: path_list(path) |> Enum.join("-")
+  def get_name_from_path(path), do: path_list(path) |> Enum.at(-1)
+  def path_list(path), do: path |> String.split("/")
+  def slug_parent(path), do: path_list(path) |> Enum.drop(1) |> Enum.drop(-1) |> Enum.join("/")
 end
