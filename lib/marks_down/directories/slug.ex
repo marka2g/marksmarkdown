@@ -3,7 +3,7 @@ defmodule MarksDown.Directories.Slug do
   @ignore_path "priv/"
 
   def parent_dirs(slug) do
-    descend(from_docs_root(slug.path))
+    drop_down(from_docs_root(slug.path))
   end
 
   defp from_docs_root(slug_path) do
@@ -12,7 +12,7 @@ defmodule MarksDown.Directories.Slug do
     |> Enum.take(-1)
   end
 
-  defp descend(path) do
+  defp drop_down(path) do
     Path.split(path)
     |> Enum.drop(-1)
     |> Enum.reduce([], fn dir, results ->
@@ -22,9 +22,9 @@ defmodule MarksDown.Directories.Slug do
 
         root ->
           if root == "/" do
-            results ++ [root <> dir]
+            results ++ ["#{root}#{dir}"]
           else
-            results ++ [root <> "/" <> dir]
+            results ++ ["#{root}/#{dir}"]
           end
       end
     end)

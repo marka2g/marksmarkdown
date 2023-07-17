@@ -1,4 +1,7 @@
 defmodule MarksDown.TreeOfContents do
+  @moduledoc """
+  Maps the files to slugs links for the tree menu
+  """
   alias MarksDown.Directories
   alias MarksDown.Directories.Slug
 

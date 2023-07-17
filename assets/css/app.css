@@ -56,4 +56,8 @@ h3 {
   @apply pb-2;
 }
 
+#raw a {
+  @apply italic hover:underline hover:text-light-teal;
+}
+
 /* dark theme - end */
