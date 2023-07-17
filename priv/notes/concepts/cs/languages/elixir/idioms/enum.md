@@ -7,17 +7,18 @@
 }
 ---
 
-## Enum
+# Enum
 
 This is not the full list but in general,  **Enum** module functions can be broken down into 3 main categories. _see_ **iex> h Enum. + tab** for a full list.
-* **Cleansing data**
+* [**1. Cleansing data**](#cleansing-data)
 >_`filter()`, `reject()`, `uniq()` and `uniq_by()`_
-* **Massaging data**
+* [**2. Massaging data**](#massaging-data)
 > _`map()`, `group_by()`, `split_with()`, `sort_by()` and  `with_index()`_
-* **Summarizing data**
+* [**3. Summarizing data**](#summarizing-data)
 > _`reduce()`, `reduce_while()`, `frequencies()` and `frequencies_by()`_
 
-### 1. _**Cleansing data**_ 
+<h2><a id="cleansing-data"></a><i><strong>1. Cleansing data</strong></i></h2>
+
 * `Enum.filter()`
 >```elixir
 >langs = [
@@ -95,7 +96,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#]
 >```
 
-### 2. _**Massaging data**_
+<h2><a id="massaging-data"></a><i><strong>2. Massaging data</strong></i></h2>
+
 * `Enum.map()`
 >```elixir
 >guitars_inventory = [
@@ -199,7 +201,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#]
 >```
 
-### 3. _**Summarizing data**_
+<h2><a id="summarizing-data"></a><i><strong>3. Summarizing data</strong></i></h2>
+
 * `Enum.reduce()` _with MapSet.new()_
 >```elixir
 >guitars_inventory
