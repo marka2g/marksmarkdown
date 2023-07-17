@@ -50,10 +50,10 @@ defmodule MarksDown.Directories do
   end
 
   # slug
-  def add_child([], _slug, root), do: root
+  defp add_child([], _slug, root), do: root
 
   # directory
-  def add_child([parent | rest], slug, root) do
+  defp add_child([parent | rest], slug, root) do
     tree =
       case Map.get(root.children, Path.basename(parent)) do
         nil ->
@@ -81,7 +81,7 @@ defmodule MarksDown.Directories do
     }
   end
 
-  def get_slugs(parent, slug) do
+  defp get_slugs(parent, slug) do
     dir_path = "#{@root_path}#{parent}"
 
     case parent == slug_parent(slug.path) do
@@ -101,8 +101,8 @@ defmodule MarksDown.Directories do
     end
   end
 
-  def get_id_from_path(path), do: path_list(path) |> Enum.join("-")
-  def get_name_from_path(path), do: path_list(path) |> Enum.at(-1)
-  def path_list(path), do: path |> String.split("/")
-  def slug_parent(path), do: path_list(path) |> Enum.drop(1) |> Enum.drop(-1) |> Enum.join("/")
+  defp get_id_from_path(path), do: path_list(path) |> Enum.join("-")
+  defp get_name_from_path(path), do: path_list(path) |> Enum.at(-1)
+  defp path_list(path), do: path |> String.split("/")
+  defp slug_parent(path), do: path_list(path) |> Enum.drop(1) |> Enum.drop(-1) |> Enum.join("/")
 end
