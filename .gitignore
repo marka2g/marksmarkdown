@@ -35,6 +35,7 @@ marks_down-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.vscode/
 .notes.ex
 .iex.exs
 .scratch.ex
