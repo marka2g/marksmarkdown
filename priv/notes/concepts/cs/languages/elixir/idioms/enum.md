@@ -20,7 +20,6 @@ This is not the full list but in general,  **Enum** module functions can be brok
 > _[`reduce()`](#reduce), [`reduce_while()`](#reduce-with), [`frequencies()`](#frequencies) and [`frequencies_by()`](#frequencies-by)_
 
 
-
 <a id="cleansing-data"></a>
 
 ## _**1. Cleansing data**_ 
