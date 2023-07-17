@@ -20,54 +20,21 @@ This is not the full list but in general,  **Enum** module functions can be brok
 > _[`reduce()`](#reduce), [`reduce_while()`](#reduce-with), [`frequencies()`](#frequencies) and [`frequencies_by()`](#frequencies-by)_
 
 
-<a id="cleansing-data"></a>
+<a id="languages"></a>
 
-## _**1. Cleansing data**_ 
-<a id="filter"></a>
-
-* ### `Enum.filter()` [**⬆︎**](#top)
+### languages
 >```elixir
->langs = [
+> #data setup
+>languages = [
 >  %{language: "Elixir", type: :concurrent},
 >  %{language: "Ruby", type: :not_concurrent},
 >  %{language: "Rust", type: :concurrent},
 >]
->Enum.filter(langs, fn 
->   %{type: :concurrent} -> true
->   _ -> false
->end)
->#[
->#  %{language: "Elixir", type: :concurrent},
->#  %{language: "Rust", type: :concurrent}
->#]
 >```
 
-<a id="reject"></a>
+<a id="dogs"></a>
 
-* ### `Enum.reject()` [**⬆︎**](#top)
->```elixir
->Enum.reject(langs, fn lang ->
->  match?(%{type: :not_concurrent}, lang)
->end)
->#[
->#  %{language: "Elixir", type: :concurrent},
->#  %{language: "Rust", type: :concurrent}
->#]
->
-># Enum.filter using a guard `when`
->Enum.filter(langs, fn
->  %{language: lang} when lang in ["Rust", "Ruby"] -> true
->  _ -> false
->end)
->#[
->#  %{language: "Rust", type: :concurrent}
->#  %{language: "Ruby", type: :not_concurrent},
->#]
->```
-
-<a id="uniq"></a>
-
-* ### `Enum.uniq()` [**⬆︎**](#top)
+### dogs
 >```elixir
 >dogs =
 >  [
@@ -79,6 +46,76 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >    %{id: 2, breed: "Pyrenees"}, 
 >    %{id: 3, breed: "Labrador"}
 >  ]
+>```
+
+<a id="guitars-inventory"></a>
+
+### guitars_inventory
+>```elixir
+>guitars_inventory = [
+>   %{year: 1967, make: "Gibson", model: "Les Paul"},
+>   %{year: 2020, make: "Fender", model: "Stratocaster"}, 
+>   %{year: 1994, make: "Martin", model: "D-18"},
+>   %{year: 2000, make: "Taylor", model: "D-28"},
+>   %{year: 2014, make: "PRS", model: "Custom 24 Floyd"}, 
+>   %{year: 2023, make: "PRS", model: "McCarty 594 Hollowbody II"}, 
+>   %{year: 1997, make: "Parker", model: "Fly Deluxe"},
+>   %{make: "Parker", model: "Fly Deluxe"},
+>]
+>
+>```
+
+
+<a id="cleansing-data"></a>
+
+## _**1. Cleansing data**_ 
+
+<a id="filter"></a>
+
+* ### `Enum.filter()` [**⬆︎**](#top)
+>```elixir
+>Enum.filter(languages, fn 
+>   %{type: :concurrent} -> true
+>   _ -> false
+>end)
+>#[
+>#  %{language: "Elixir", type: :concurrent},
+>#  %{language: "Rust", type: :concurrent}
+>#]
+>```
+
+[languages map](#languages)
+
+
+<a id="reject"></a>
+
+* ### `Enum.reject()` [**⬆︎**](#top)
+>```elixir
+>Enum.reject(languages, fn lang ->
+>  match?(%{type: :not_concurrent}, lang)
+>end)
+>#[
+>#  %{language: "Elixir", type: :concurrent},
+>#  %{language: "Rust", type: :concurrent}
+>#]
+>
+># Enum.filter using a guard `when`
+>Enum.filter(languages, fn
+>  %{language: lang} when lang in ["Rust", "Ruby"] -> true
+>  _ -> false
+>end)
+>#[
+>#  %{language: "Rust", type: :concurrent}
+>#  %{language: "Ruby", type: :not_concurrent},
+>#]
+>```
+
+[languages map](#languages)
+
+<a id="uniq"></a>
+
+* ### `Enum.uniq()` [**⬆︎**](#top)
+>```elixir
 >Enum.uniq(dogs)
 >#[
 >#  %{breed: "Pit Bull", id: 1},
@@ -88,6 +125,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  %{breed: "Labrador", id: 3}
 >#]
 >```
+
+[dogs map](#dogs)
 
 <a id="uniq-by"></a>
 
@@ -111,6 +150,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#]
 >```
 
+[dogs map](#dogs)
+
 
 <a id="massaging-data"></a>
 
@@ -120,17 +161,6 @@ This is not the full list but in general,  **Enum** module functions can be brok
 
 * ### `Enum.map()` [**⬆︎**](#top)
 >```elixir
->guitars_inventory = [
->   %{year: 1967, make: "Gibson", model: "Les Paul"},
->   %{year: 2020, make: "Fender", model: "Stratocaster"}, 
->   %{year: 1994, make: "Martin", model: "D-18"},
->   %{year: 2000, make: "Taylor", model: "D-28"},
->   %{year: 2014, make: "PRS", model: "Custom 24 Floyd"}, 
->   %{year: 2023, make: "PRS", model: "McCarty 594 Hollowbody II"}, 
->   %{year: 1997, make: "Parker", model: "Fly Deluxe"},
->   %{make: "Parker", model: "Fly Deluxe"},
->]
->
 >guitars_inventory
 >|> Enum.map(fn
 >    %{year: year, make: make, model: model} = entry
@@ -153,6 +183,9 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  "1997 Parker Fly Deluxe"
 >#]
 >```
+
+[guitars_inventory map](#guitars_inventory)
+
 
 <a id="group-by"></a>
 
@@ -178,6 +211,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#}
 >```
 
+[guitars_inventory map](#guitars_inventory)
+
 <a id="split-with"></a>
 
 * ### `Enum.split_with()` [**⬆︎**](#top)
@@ -199,6 +234,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  [%{make: "Parker", model: "Fly Deluxe"}]
 >#}
 >```
+
+[guitars_inventory map](#guitars_inventory)
 
 <a id="sort-by"></a>
 
@@ -229,6 +266,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#]
 >```
 
+[guitars_inventory map](#guitars_inventory)
+
 <a id="summarizing-data"></a>
 
 ## 3. _**Summarizing data**_ 
@@ -245,6 +284,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >
 >#["Fender", "Gibson", "Martin", "PRS", "Parker", "Taylor"]
 >```
+
+[guitars_inventory map](#guitars_inventory)
 
 <a id="reduce-while"></a>
 
@@ -277,6 +318,8 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#}
 >```
 
+[guitars_inventory map](#guitars_inventory)
+
 <a id="frequencies-by"></a>
 
 * ### `Enum.frequencies_by()` [**⬆︎**](#top)
@@ -295,3 +338,5 @@ This is not the full list but in general,  **Enum** module functions can be brok
 >#  "taylor" => 1
 >#}
 >```
+
+[guitars_inventory map](#guitars_inventory)
