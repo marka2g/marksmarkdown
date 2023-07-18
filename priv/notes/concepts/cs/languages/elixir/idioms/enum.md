@@ -26,7 +26,6 @@ This is not the full list but in general, **Enum** module functions can be broke
 
 ### languages list of maps
 >```elixir
-> #data setup
 >languages = [
 >  %{language: "Elixir", type: :concurrent},
 >  %{language: "Ruby", type: :not_concurrent},

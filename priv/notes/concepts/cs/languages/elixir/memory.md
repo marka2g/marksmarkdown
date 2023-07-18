@@ -1,5 +1,5 @@
 %{
-  title: "Elixir Datastructures and Memory",
+  title: "Elixir Data Structures and Memory",
   author: "Mark Sadegi",
   description: "Notes on how elixir manages memory of it's various data structures",
   tags: ~w(elixir lists tuples maps structs map_set),
