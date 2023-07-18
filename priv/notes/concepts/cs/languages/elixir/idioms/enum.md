@@ -55,14 +55,14 @@ This is not the full list but in general, **Enum** module functions can be broke
 ### guitars list of maps
 >```elixir
 >guitars = [
->   %{year: 1967, make: "Gibson", model: "Les Paul"},
->   %{year: 2020, make: "Fender", model: "Stratocaster"}, 
->   %{year: 1994, make: "Martin", model: "D-18"},
->   %{year: 2000, make: "Taylor", model: "D-28"},
->   %{year: 2014, make: "PRS", model: "Custom 24 Floyd"}, 
->   %{year: 2023, make: "PRS", model: "McCarty 594 Hollowbody II"}, 
->   %{year: 1997, make: "Parker", model: "Fly Deluxe"},
->   %{make: "Parker", model: "Fly Deluxe"},
+>   %{year: 1967, maker: "Gibson", model: "Les Paul"},
+>   %{year: 2020, maker: "Fender", model: "Stratocaster"}, 
+>   %{year: 1994, maker: "Martin", model: "D-18"},
+>   %{year: 2000, maker: "Taylor", model: "D-28"},
+>   %{year: 2014, maker: "PRS", model: "Custom 24 Floyd"}, 
+>   %{year: 2023, maker: "PRS", model: "McCarty 594 Hollowbody II"}, 
+>   %{year: 1997, maker: "Parker", model: "Fly Deluxe"},
+>   %{maker: "Parker", model: "Fly Deluxe"},
 >]
 >
 >```
@@ -161,7 +161,7 @@ This is not the full list but in general, **Enum** module functions can be broke
 >```elixir
 >guitars
 >|> Enum.map(fn
->    %{year: year, make: make, model: model} = entry
+>    %{year: year, maker: make, model: model} = entry
 >    when not is_nil(year) and not is_nil(make) and not is_nil(model) ->
 >      "#{year} #{make} #{model}" 
 >      _ -> 
@@ -190,21 +190,21 @@ This is not the full list but in general, **Enum** module functions can be broke
 >```elixir
 >guitars
 >|> Enum.group_by(fn
->     %{make: make} -> make
+>     %{maker: make} -> make
 >end)
 >#%{
->#  "Fender" => [%{make: "Fender", model: "Stratocaster", year: 2020}],
->#  "Gibson" => [%{make: "Gibson", model: "Les Paul", year: 1967}],
->#  "Martin" => [%{make: "Martin", model: "D-18", year: 1994}],
+>#  "Fender" => [%{maker: "Fender", model: "Stratocaster", year: 2020}],
+>#  "Gibson" => [%{maker: "Gibson", model: "Les Paul", year: 1967}],
+>#  "Martin" => [%{maker: "Martin", model: "D-18", year: 1994}],
 >#  "PRS" => [
->#    %{make: "PRS", model: "Custom 24 Floyd", year: 2014},
->#    %{make: "PRS", model: "McCarty 594 Hollowbody II", year: 2023}
+>#    %{maker: "PRS", model: "Custom 24 Floyd", year: 2014},
+>#    %{maker: "PRS", model: "McCarty 594 Hollowbody II", year: 2023}
 >#  ],
 >#  "Parker" => [
->#    %{make: "Parker", model: "Fly Deluxe", year: 1997},
->#    %{make: "Parker", model: "Fly Deluxe"}
+>#    %{maker: "Parker", model: "Fly Deluxe", year: 1997},
+>#    %{maker: "Parker", model: "Fly Deluxe"}
 >#  ],
->#  "Taylor" => [%{make: "Taylor", model: "D-28", year: 2000}]
+>#  "Taylor" => [%{maker: "Taylor", model: "D-28", year: 2000}]
 >#}
 >```
 > [guitars list of maps](#guitars)
@@ -219,15 +219,15 @@ This is not the full list but in general, **Enum** module functions can be broke
 >end)
 >#{
 >#  [
->#    %{make: "Gibson", model: "Les Paul", year: 1967},
->#    %{make: "Fender", model: "Stratocaster", year: 2020},
->#    %{make: "Martin", model: "D-18", year: 1994},
->#    %{make: "Taylor", model: "D-28", year: 2000},
->#    %{make: "PRS", model: "Custom 24 Floyd", year: 2014},
->#    %{make: "PRS", model: "McCarty 594 Hollowbody II", year: 2023},
->#    %{make: "Parker", model: "Fly Deluxe", year: 1997}
+>#    %{maker: "Gibson", model: "Les Paul", year: 1967},
+>#    %{maker: "Fender", model: "Stratocaster", year: 2020},
+>#    %{maker: "Martin", model: "D-18", year: 1994},
+>#    %{maker: "Taylor", model: "D-28", year: 2000},
+>#    %{maker: "PRS", model: "Custom 24 Floyd", year: 2014},
+>#    %{maker: "PRS", model: "McCarty 594 Hollowbody II", year: 2023},
+>#    %{maker: "Parker", model: "Fly Deluxe", year: 1997}
 >#  ], 
->#  [%{make: "Parker", model: "Fly Deluxe"}]
+>#  [%{maker: "Parker", model: "Fly Deluxe"}]
 >#}
 >```
 > [guitars list of maps](#guitars)
@@ -243,9 +243,9 @@ This is not the full list but in general, **Enum** module functions can be broke
 >end)
 >|> Enum.with_index(1)
 >|> Enum.map(fn 
->    {%{year: year, make: make, model: model}, index} ->
+>    {%{year: year, maker: make, model: model}, index} ->
 >      "#{index}, #{year} #{make} #{model}"
->    {%{make: make, model: model}, index} ->
+>    {%{maker: make, model: model}, index} ->
 >      "#{index}, #{make} #{model}"
 >end)
 >
@@ -271,7 +271,7 @@ This is not the full list but in general, **Enum** module functions can be broke
 * ### `Enum.reduce()` _with MapSet.new()_
 >```elixir
 >guitars
->|> Enum.reduce(MapSet.new(), fn %{make: make}, acc ->
+>|> Enum.reduce(MapSet.new(), fn %{maker: make}, acc ->
 >     MapSet.put(acc, make)
 >end)
 >|> MapSet.to_list()
@@ -299,7 +299,7 @@ This is not the full list but in general, **Enum** module functions can be broke
 * ### `Enum.frequencies()` [**⬆︎**](#top)
 >```elixir
 >guitars
->|> Enum.map(fn %{make: make} -> make end)
+>|> Enum.map(fn %{maker: make} -> make end)
 >|> Enum.frequencies()
 >#%{
 >#  "Fender" => 1,
@@ -317,7 +317,7 @@ This is not the full list but in general, **Enum** module functions can be broke
 * ### `Enum.frequencies_by()` [**⬆︎**](#top)
 >```elixir
 >guitars
->|> Enum.map(fn %{make: make} -> make end)
+>|> Enum.map(fn %{maker: make} -> make end)
 >|> Enum.frequencies_by(fn guitar -> 
 >    String.downcase(guitar)
 >end)
