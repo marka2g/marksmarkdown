@@ -34,11 +34,12 @@ To do this, building a basic tree representing the directories and markdown file
 ### 1. Add structs to represent the menu link nodes:
 <a id="tree-struct"></a>
 
-- [**`%Tree{}`** - _represent a directory to toggle_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/tree.ex){:target="_blank"}
+- [**`%Tree{}`** - _represents a directory to toggle_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/tree.ex){:target="_blank"}
 >```elixir
 >defmodule MarksDown.Directories.Tree do
 >  @moduledoc """
->  A tree data structure that encapsulates a directory in the file system
+>  A tree data structure that encapsulates 
+>  a directory in the file system
 >  """
 >  alias __MODULE__
 >
@@ -53,6 +54,10 @@ To do this, building a basic tree representing the directories and markdown file
 - [**`%Slug{}`** - _represents an actual link to a markdown file_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/slug.ex){:target="_blank"}
 >```elixir
 >defmodule MarksDown.Directories.Slug do
+>  @moduledoc """
+>  Data structure that encapsulates 
+>  a slug(.md) in the file system
+>  """
 >  defstruct name: nil, path: nil, file: nil
 >  @ignore_path "priv/"
 >
@@ -75,17 +80,17 @@ To do this, building a basic tree representing the directories and markdown file
 >          [dir]
 >
 >        root ->
->          if root == "/" do
->            results ++ ["#{root}#{dir}"]
->          else
->            results ++ ["#{root}/#{dir}"]
->          end
->      end
->    end)
->  end
+>         if root == "/" do
+>           results ++ ["#{root}#{dir}"]
+>         else
+>           results ++ ["#{root}/#{dir}"]
+>         end
+>       end
+>     end)
+>   end
 >end
 >```
-> [**⬆︎ to steps**](#steps)
+> [**⬆︎ to Steps**](#steps)
 
 <a id="step-2"></a>
 
@@ -97,7 +102,8 @@ To do this, building a basic tree representing the directories and markdown file
 >```elixir
 >defmodule MarksDown.Directories do
 >  @moduledoc """
->    Maps the directories and markdown files and contructs a tree data structure
+>    Maps the directories and markdown files 
+>    and contructs a tree data structure
 >  """
 >  alias MarksDown.Directories.{Tree, Slug}
 >
@@ -117,10 +123,10 @@ To do this, building a basic tree representing the directories and markdown file
 >    end)
 >  end
 >
->  # when [], its a slug
+>  # when [], it's a file/slug
 >  defp add_child([], _slug, root), do: root
 >
->  # when items in list, its a directory
+>  # when items in list, it's a directory
 >  defp add_child([parent | rest], slug, root) do
 >    tree =
 >      case Map.get(root.children, Path.basename(parent)) do
@@ -145,14 +151,14 @@ To do this, building a basic tree representing the directories and markdown file
 >            root.children,
 >            Path.basename(parent),
 >            tree
->          )
->    }
+>         )
+>      }
 >  end
 >
 >  #...
 >end
 >```
-> [**⬆︎ to steps**](#steps)
+> [**⬆︎ to Steps**](#steps)
 
 <a id="tree-of-contents-module"></a>
 
@@ -201,9 +207,11 @@ To do this, building a basic tree representing the directories and markdown file
 >```
 >
 >```elixir
-># data structure after build_tree_menu() is called
-># notice that some trees have an empty [] for slugs
-># this represents an empty parent directory
+># data structure after 
+># MarksDown.TreeOfContents.build_tree_menu()
+># is called. notice that some trees have an 
+># empty [] for slugs. these represent an 
+># empty parent directory
 >%MarksDown.Directories.Tree{
 >  id: "notes",
 >  name: "notes",
@@ -247,19 +255,19 @@ To do this, building a basic tree representing the directories and markdown file
 >                      path: "notes/concepts/cs/languages/elixir/idioms",
 >                      slugs: ["enum.html", "elixir-tips.html"],
 >                      children: %{}
->                    }
->                  }
->                }
->              }
->            }
->          }
->        }
->      }
->    }
->  }
->}
+>                     }
+>                   }
+>                 }
+>               }
+>             }
+>           }
+>         }
+>       }
+>     }
+>   }
+> }
 >```
-> [**⬆︎ to steps**](#steps)
+> [**⬆︎ to Steps**](#steps)
 
 <a id="step-3"></a>
 
@@ -278,7 +286,7 @@ To do this, building a basic tree representing the directories and markdown file
 >  #...
 >end
 >```
->[**⬆︎ to steps**](#steps)
+>[**⬆︎ to Steps**](#steps)
 
 <a id="step-4"></a>
 
@@ -312,12 +320,13 @@ To do this, building a basic tree representing the directories and markdown file
 >       tree_of_contents:
 >         Contents.tree_of_contents()
 >         |> Map.from_struct()
->     )}
+>       )
+>     }
 >  end
 >  #...
 >end
 >```
->[**⬆︎ to steps**](#steps)
+>[**⬆︎ to Steps**](#steps)
 >
 
 <a id="tree-menu-component"></a>
@@ -362,8 +371,8 @@ To do this, building a basic tree representing the directories and markdown file
 >
 >  #...
 > ```
->[**⬆︎ to steps**](#steps)
+>[**⬆︎ to Steps**](#steps)
 >
 
 ## Conclusion
-And there you have it, we built a tree menu that dynamically builds itself as markdown files are added. This read was a bit long even though I only included the important bits of the feature; be sure to check out the [work-in-progress source](https://github.com/marka2g/marksmarkdown){:target="_blank"}. Finally, iterative improvements will be made as time permits and I will try to keep this note updated along with those changes. Thanks for reading!
+And there you have it, we built a tree menu that dynamically builds itself as markdown files are added. This read was a bit long even though I only included the important bits of the feature; be sure to check out the [work-in-progress source](https://github.com/marka2g/marksmarkdown){:target="_blank"}. Finally, iterative improvements will be made as time permits and I will try to keep this note updated in sync with code changes. Thanks for reading!
