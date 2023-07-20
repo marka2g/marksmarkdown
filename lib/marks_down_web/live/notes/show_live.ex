@@ -13,7 +13,7 @@ defmodule MarksDownWeb.Notes.ShowLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <div id="clipboards" phx-hook="AddCopyToClipboardButtons">
+    <div id="clipboards" phx-hook="AddCopyButtons">
       <%!-- <div> --%>
       <div class="flex flex-col">
         <div class="mb-4 text-sm font-extrabold">
