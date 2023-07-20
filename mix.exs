@@ -47,9 +47,15 @@ defmodule MarksDown.MixProject do
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
       {:nimble_publisher, "~> 1.0"},
       {:makeup_elixir, "~> 0.16.1"},
-      {:makeup_erlang, "~> 0.1.0"}
+      {:makeup_erlang, "~> 0.1.0"},
+      # {:makeup_html, ">= 0.0.0", only: :dev, runtime: false},
+      # {:makeup_heex, ">= 0.0.0"},
+      {:makeup_html, ">= 0.0.0"},
+      {:makeup_json, ">= 0.0.0"},
+      {:makeup_diff, ">= 0.0.0"}
     ]
   end
 
