@@ -51,11 +51,11 @@ defmodule MarksDown.MixProject do
       {:nimble_publisher, "~> 1.0"},
       {:makeup_elixir, "~> 0.16.1"},
       {:makeup_erlang, "~> 0.1.0"},
+      {:makeup_html, ">= 0.0.0"},
+      {:makeup_diff, ">= 0.0.0"}
       # {:makeup_html, ">= 0.0.0", only: :dev, runtime: false},
       # {:makeup_heex, ">= 0.0.0"},
-      {:makeup_html, ">= 0.0.0"},
-      {:makeup_json, ">= 0.0.0"},
-      {:makeup_diff, ">= 0.0.0"}
+      # {:makeup_json, ">= 0.0.0"},
     ]
   end
 

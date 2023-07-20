@@ -14,7 +14,7 @@ defmodule MarksDownWeb.Notes.ShowLive do
   def render(assigns) do
     ~H"""
     <div id="clipboards" phx-hook="AddCopyToClipboardButtons">
-    <%!-- <div> --%>
+      <%!-- <div> --%>
       <div class="flex flex-col">
         <div class="mb-4 text-sm font-extrabold">
           <.icon name="hero-calendar-days" class="pr-8" /><%= @note.date %>
