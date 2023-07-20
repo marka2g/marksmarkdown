@@ -25,7 +25,11 @@ import { initialize as initCopyButton } from "./copy-button";
 
 let Hooks = {};
 
-Hooks.AddCopyToClipboardButtons = { initCopyButton() };
+Hooks.AddCopyButtons = {
+  mounted() {
+    initCopyButton();
+  },
+};
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
