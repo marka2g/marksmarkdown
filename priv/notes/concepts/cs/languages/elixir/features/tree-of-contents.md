@@ -9,7 +9,7 @@
 
 [The secret's out](https://dashbit.co/blog/welcome-to-our-blog-how-it-was-made){:target="_blank"}, ...building a Phoenix LiveView powered static site has never been easier thanks to [**`NimblePublisher`**](https://github.com/dashbitco/nimble_publisher){:target="_blank"}. Also, [fly.io](https://fly.io){:target="_blank"} makes [publishing your markdown to the world](https://fly.io/phoenix-files/crafting-your-own-static-site-generator-using-phoenix/){:target="_blank"} a breeze. In this post, I'll skip on describing how to setup and implement `nimble_publisher` - the docs are excellent and there are loads of resources online to refer to if you get stuck.
 
-That out of the way, what I really wanted was a linkable, file-structure-like menu that would auto-generate each time a markdown file is added. I wanted a the files to represent an organized tree, looking like:
+That out of the way, what I really wanted was a linkable, file-structure-like menu that would auto-generate each time a markdown file is added and removed. The menu should represent the static pages in an organized tree, looking like:
 
 <image src="/images/notes/tree_menu.png" alt="tree_menu" width="200" height="250"/>
 
@@ -212,7 +212,7 @@ To accomplish this, a basic tree data structure representing the directories and
 >
 >```elixir
 ># data structure after 
-># MarksDown.TreeOfContents.build_tree_menu()
+># TreeOfContents.build_tree_menu()
 ># is called. notice that some trees have an 
 ># empty [] for slugs. these represent an 
 ># empty parent directory
@@ -379,4 +379,4 @@ To accomplish this, a basic tree data structure representing the directories and
 >
 
 ## Conclusion
-And there you have it, a tree menu that dynamically builds itself as markdown files are added. This read was a bit long even though I only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank"}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!
+And there you have it, a tree menu that dynamically builds itself as markdown files are added and removed. This read was a bit long even though I only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank"}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!
