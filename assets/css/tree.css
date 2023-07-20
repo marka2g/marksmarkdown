@@ -60,6 +60,7 @@ ul summary::before {
   border-radius: 55em;
   text-align: center;
   line-height: 0.9em;
+  z-index: 10;
   @apply bg-fuchsia-600 text-neutral-100;
 }
 

@@ -53,6 +53,77 @@ iex(2)> list = [false, 1, 2, 3, false]
 
 
 ---
+
+honeybadger article - MAKE A TABLE of Data containers
+
+Understanding the underlying memory representation grants us the ability to adequately choose which data structures to use in a particular use-case.
+
+`C` - `malloc` & `free`
+
+```c
+int *some_array;
+some_array = (int *) malloc(sizeof(int) * 5);
+free(some_array);
+```
+
+what happens if we don't call `free()`? -> **memory leak**
+
+
+
+"Memory is like a jar of nails, when program first starts, the jar is full and may be used at will. However, not putting the nails back into the jar when we no longer need them can eventually lead to not having enough nails to do our job. The memory in our system is our jar, and we ought to keep track of our nails or risk running out of them. This is the premise for a low-level language with manual memory management, such as C."
+
+
+### `garbage collection`
+Elixir -> higher-level lang - takes care of memory management
+>```elixir
+>list = [1, 2, 3, 4]
+>#=> [1, 2, 3, 4]
+>dubbled_list = list |> Enum.map(&(&1 * 2))
+>#=> [2, 4, 6, 8]
+>```
+
+
+## Data Containers in Erlang/Elixir
+### `word`
+the fundamental data unit
+
+>```elixir
+>:erlang.system_info(:wordsize)
+># => 8
+>```
+
+```elixir
+:erts_debug.size/1 
+:erts_debug.flat_size/1 
+```
+
+
+### `literals` & `immediates`
+types that fit into a single machine word such as `small integers`, local process identifiers (`PIDs`), `ports`, `atoms`, or a `NIL` value(_stands for the empty list_), n.t.b.c.w. the atom `nil`
+
+### `Atoms`
+the most distinct of the `immediates`; never garbage-collected. once created, it will live in memory until the system exits. when a given atom is created more than once, its memory footprint does not double. Instead of copying atoms, refs are used to access the respective slot in the table. This can be seen when using the `:erts_debug.size/1` function with an atom argument:
+>```elixir
+>:erts_debug.size(:some_atom)
+># => 0
+>
+># The word size is zero because the atom itself 
+># lives in the atom table, and we are just passing 
+># references to that particular slot.
+>```
+
+
+## Boxed Values
+`lists`, `tuples`, `maps`, `binaries`, `remote PID`s and `ports`, `floats`, `large integers`, `functions`, and `exports`
+
+this article focuses on the firs four: `lists`, `tuples`, `maps`, `binaries`
+
+
+### Lists
+
+
+
+---
 # Links and Resources
 
 

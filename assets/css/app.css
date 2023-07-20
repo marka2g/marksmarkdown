@@ -19,6 +19,10 @@ html {
   @apply font-sans text-purp-wht bg-drk-bk;
 }
 
+.disclaimer {
+  @apply mt-10 text-xs leading-5;
+}
+
 ul.note-item > li::after,
 ul.note-item > li::before {
   display: none;
