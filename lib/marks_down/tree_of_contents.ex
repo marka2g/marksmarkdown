@@ -10,7 +10,7 @@ defmodule MarksDown.TreeOfContents do
   def build_menu_tree(path \\ @files_path) do
     slugs = get_slugs(path)
 
-    Directories.build(slugs).children["notes"]
+    Directories.map_menu_links(slugs).children["notes"]
   end
 
   defp file_name(path) do

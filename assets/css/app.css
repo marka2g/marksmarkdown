@@ -63,7 +63,10 @@ h3 {
 }
 
 #raw a {
-  @apply hover:underline hover:text-light-teal;
+  @apply hover:text-light-teal;
+}
+#raw .under {
+  @apply underline;
 }
 
 #raw .sub-list-item {

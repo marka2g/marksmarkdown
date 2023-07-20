@@ -7,15 +7,15 @@
 }
 ---
 
-[The secret's out](https://dashbit.co/blog/welcome-to-our-blog-how-it-was-made){:target="_blank"}, ...building a Phoenix LiveView powered static site has never been easier thanks to [**`NimblePublisher`**](https://github.com/dashbitco/nimble_publisher){:target="_blank"}. Also, [fly.io](https://fly.io){:target="_blank"} makes [publishing your markdown to the world](https://fly.io/phoenix-files/crafting-your-own-static-site-generator-using-phoenix/){:target="_blank"} a breeze. In this post, I'll skip on describing how to setup and implement `nimble_publisher` - the docs are excellent and there are loads of resources online to refer to if you get stuck.
+[The secret's out](https://dashbit.co/blog/welcome-to-our-blog-how-it-was-made){:target="_blank" .under}, ...building a Phoenix LiveView powered static site has never been easier thanks to [**`NimblePublisher`**](https://github.com/dashbitco/nimble_publisher){:target="_blank" .under}. Also, [fly.io](https://fly.io){:target="_blank" .under} makes [publishing your markdown to the world](https://fly.io/phoenix-files/crafting-your-own-static-site-generator-using-phoenix/){:target="_blank" .under} a breeze. In this post, I'll skip on describing how to setup and implement NimblePublisher - the docs are excellent and there are loads of resources online to refer to if you get stuck.
 
-That out of the way, what I really wanted was a linkable, file-structure-like menu that would auto-generate each time a markdown file is added and removed. The menu should represent the static pages that exist in a file structure looking like:
+That out of the way, this note walks through creating a linkable, file-structure-like menu that would auto-generate each time a markdown file is added or removed. The menu should represent the static pages that exist in a file structure looking like:
 
 <image src="/images/notes/toc_file_structure.png" alt="file structure" width="250" height="300" class="my-4"/>
 
 _Notice that only the directories with markdown files show up in the tree of contents menu._ 
 
-To accomplish this, a basic tree data structure representing the directories and markdown file slugs within those nested directories seemed the correct path to take. The code is a work in progress; there is room for refinement. Nonetheless, this was a first pass and it's functioning as initially designed. You can checkout the [source here](https://github.com/marka2g/marksmarkdown){:target="_blank"}. Let's run through some of the important steps to build the menu.
+To accomplish this, a basic tree data structure representing the directories and markdown file slugs within those nested directories seemed the correct path to take. The code is a work in progress; there is room for improvements and refinement. Nonetheless, this was a first pass and it's functioning as initially designed. Let's run through some of the important steps to build the Tree Of Contents menu and you can checkout the [source here](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}.
 
 <a id="steps"></a>
 
@@ -25,7 +25,7 @@ To accomplish this, a basic tree data structure representing the directories and
 * [**2. Map directories and slugs to build a tree structure**](#step-2)
 > [**`Directories(Module)`, **](#directories-module){:css .sub-list-item} [** `TreeOfContents(Module)`**](#tree-of-contents-module){:css .sub-list-item}
 * [**3. Integrate with `NimblePublisher`**](#step-3)
-> [**`Contents(Module)`, **](#contents-module){:css .sub-list-item} [** `Notes(Module)` _link to source_**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents/note.ex){:target="_blank" .sub-list-item}
+> [**`Contents(Module)`, **](#contents-module){:css .sub-list-item} [** `Notes(Module)` _link to source_**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents/note.ex){:target="_blank" .sub-list-item .under}
 * [**4. Integrate with `PhoenixLiveView`**](#step-4)
 > [**Implement `live_session` `on_mount` hook, **](#on-mount-hook){:css .sub-list-item} [ ** `TreeMenuComponent`**](#tree-menu-component){:css .sub-list-item}
 
@@ -37,7 +37,7 @@ To accomplish this, a basic tree data structure representing the directories and
 
 <div class="tree-struct"></div>
 
-- [**`%Tree{}`** - _represents a directory to toggle_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/tree.ex){:target="_blank"}
+- [**`%Tree{}`** - _represents a directory to toggle_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/tree.ex){:target="_blank" .under}
 >```elixir
 >defmodule MarksDown.Directories.Tree do
 >  @moduledoc """
@@ -55,7 +55,7 @@ To accomplish this, a basic tree data structure representing the directories and
 
 <a id="slug-struct"></a>
 
-- [**`%Slug{}`** - _represents an actual link to a markdown file_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/slug.ex){:target="_blank"}{:css #slug-code-link}
+- [**`%Slug{}`** - _represents an actual link to a markdown file_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/slug.ex){:target="_blank"}{:css #slug-code-link .under}
 >```elixir
 >defmodule MarksDown.Directories.Slug do
 >  @moduledoc """
@@ -104,24 +104,23 @@ To accomplish this, a basic tree data structure representing the directories and
 
 <a id="directories-module"></a>
 
-- [**Directories Module(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories.ex){:target="_blank"}
+- [**Directories Module(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories.ex){:target="_blank" .under}
 >```elixir
 >defmodule MarksDown.Directories do
 >  @moduledoc """
 >    Maps the directories and markdown files 
->    and contructs a tree data structure
+>    to construct a tree data structure
 >  """
 >  alias MarksDown.Directories.{Tree, Slug}
 >
 >  #...
 >
 >  @doc """
->    The tree builder function:
->    first, sort top level children given as
->    parameter by name and then Enum.reduce
->    to build the directories starting with empty tree.
+>    First, sort top level children given as
+>    parameter by name and then starting with empty tree,
+>    Enum.reduce to map the directories.
 >  """
->  def build(children) do
+>  def map_menu_links(children) do
 >    children = Enum.sort_by(children, & &1.path, :desc)
 >
 >    Enum.reduce(children, %Tree{}, fn child, root ->
@@ -148,6 +147,7 @@ To accomplish this, a basic tree data structure representing the directories and
 >          tree
 >      end
 >
+>    # recurse
 >    tree = add_child(rest, slug, tree)
 >
 >    %{
@@ -168,7 +168,7 @@ To accomplish this, a basic tree data structure representing the directories and
 
 <a id="tree-of-contents-module"></a>
 
-- [**TreeOfContents Module(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/tree_of_contents.ex){:target="_blank"}
+- [**TreeOfContents Module(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/tree_of_contents.ex){:target="_blank" .under}
 >```elixir
 >defmodule MarksDown.TreeOfContents do
 >  @moduledoc """
@@ -178,12 +178,10 @@ To accomplish this, a basic tree data structure representing the directories and
 >
 >  def build_menu_tree(path \\ @files_path) do
 >    slugs = get_slugs(path)
->    Directories.build(slugs).children["notes"]
+>    Directories.map_menu_links(slugs).children["notes"]
 >  end
 >
->  defp file_name(path) do
->    #...
->  end
+>  #...
 >
 >  defp get_slugs(path) do
 >    Enum.map(
@@ -280,7 +278,7 @@ To accomplish this, a basic tree data structure representing the directories and
 ### 3. Integrate with `NimblePublisher`
 <a id="contents-module"></a>
 
-[**Contents Module(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents.ex){:target="_blank"}
+[**Contents Module(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents.ex){:target="_blank" .under}
 >```elixir
 > # The Main NimblePublisher Module 
 >defmodule MarksDown.Contents do
@@ -296,8 +294,8 @@ To accomplish this, a basic tree data structure representing the directories and
 
 <a id="step-4"></a>
 
-### 4. Integrate with `Phoenix LiveView`
-> First, I created a `live_seesion` hook to preload the common static data needed by the various live_views
+### 4. Integrate with `PhoenixLiveView`
+> First, I created a `live_session` `on_mount` hook to preload the common static data needed by the two live_views
 >```elixir
 ># in the router.ex file
 >defmodule MarksDownWeb.Router do
@@ -337,7 +335,7 @@ To accomplish this, a basic tree data structure representing the directories and
 
 <a id="tree-menu-component"></a>
 
-- [**TreeMenuComponent(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down_web/components/tree_menu_component.ex){:target="_blank"}
+- [**TreeMenuComponent(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down_web/components/tree_menu_component.ex){:target="_blank" .under}
 > Finally, a live component recursively builds the html menu
 > ```elixir
 >defmodule MarksDownWeb.TreeMenuComponent do
@@ -367,6 +365,7 @@ To accomplish this, a basic tree data structure representing the directories and
 >          <%= for child_key <- Map.keys assigns.notes.children do %>
 >            <% child = assigns.notes.children[child_key] %>
 >            <% assigns = assign(assigns, :notes, child) %>
+>            <%!-- recurse --%>
 >            <%= tree_menu(assigns) %>
 >          <% end %>
 >        </ul>
@@ -381,4 +380,4 @@ To accomplish this, a basic tree data structure representing the directories and
 >
 
 ## Conclusion
-And there you have it, a tree menu that dynamically builds itself as markdown files are added and removed. This read was a bit long even though I only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank"}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!
+And there you have it, a tree menu that dynamically builds itself as markdown files are added and removed. This read was a bit long even though I attempted to only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!

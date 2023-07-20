@@ -37,11 +37,11 @@ defmodule MarksDown.Directories do
   end
 
   @doc """
-   first, sort top level children given as
-   parameter by name and then Enum.reduce
-   to build the directories starting with empty tree.
+    First, sort top level children given as
+    parameter by name and then starting with empty tree,
+    Enum.reduce to map the directories.
   """
-  def build(children) do
+  def map_menu_links(children) do
     children = Enum.sort_by(children, & &1.path, :desc)
 
     Enum.reduce(children, %Tree{}, fn child, root ->
