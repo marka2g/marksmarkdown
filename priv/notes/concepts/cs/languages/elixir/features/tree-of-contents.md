@@ -9,9 +9,11 @@
 
 [The secret's out](https://dashbit.co/blog/welcome-to-our-blog-how-it-was-made){:target="_blank"}, ...building a Phoenix LiveView powered static site has never been easier thanks to [**`NimblePublisher`**](https://github.com/dashbitco/nimble_publisher){:target="_blank"}. Also, [fly.io](https://fly.io){:target="_blank"} makes [publishing your markdown to the world](https://fly.io/phoenix-files/crafting-your-own-static-site-generator-using-phoenix/){:target="_blank"} a breeze. In this post, I'll skip on describing how to setup and implement `nimble_publisher` - the docs are excellent and there are loads of resources online to refer to if you get stuck.
 
-That out of the way, what I really wanted was a linkable, file-structure-like menu that would auto-generate each time a markdown file is added and removed. The menu should represent the static pages in an organized tree, looking like:
+That out of the way, what I really wanted was a linkable, file-structure-like menu that would auto-generate each time a markdown file is added and removed. The menu should represent the static pages that exist in a file structure looking like:
 
-<image src="/images/notes/tree_menu.png" alt="tree_menu" width="200" height="250"/>
+<image src="/images/notes/toc_file_structure.png" alt="file structure" width="250" height="300" class="my-4"/>
+
+_Notice that only the directories with markdown files show up in the tree of contents menu._ 
 
 To accomplish this, a basic tree data structure representing the directories and markdown file slugs within those nested directories seemed the correct path to take. The code is a work in progress; there is room for refinement. Nonetheless, this was a first pass and it's functioning as initially designed. You can checkout the [source here](https://github.com/marka2g/marksmarkdown){:target="_blank"}. Let's run through some of the important steps to build the menu.
 
@@ -19,13 +21,13 @@ To accomplish this, a basic tree data structure representing the directories and
 
 ## Steps
 * [**1. Add structs to represent the menu link nodes:**](#step-1)
-> [**`%Tree{}`, **](#tree-struct){:css .sub-list-item} [**`%Slug{}`**](#slug-struct){:css .sub-list-item}
+> [**`%Tree{}`, **](#tree-struct){:css .sub-list-item} [** `%Slug{}`**](#slug-struct){:css .sub-list-item}
 * [**2. Map directories and slugs to build a tree structure**](#step-2)
-> [**`Directories Module`, **](#directories-module){:css .sub-list-item} [**`TreeOfContents Module`**](#tree-of-contents-module){:css .sub-list-item}
+> [**`Directories(Module)`, **](#directories-module){:css .sub-list-item} [** `TreeOfContents(Module)`**](#tree-of-contents-module){:css .sub-list-item}
 * [**3. Integrate with `NimblePublisher`**](#step-3)
-> [**`Contents Module`, **](#contents-module){:css .sub-list-item} [ **`Notes Module` (link to source)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents/note.ex){:target="_blank" .sub-list-item}
-* [**4. Integrate with `Phoenix LiveView`**](#step-4)
-> [**Implement `live_session` `on_mount` hook, **](#on-mount-hook){:css .sub-list-item} [ **`TreeMenuComponent`**](#tree-menu-component){:css .sub-list-item}
+> [**`Contents(Module)`, **](#contents-module){:css .sub-list-item} [** `Notes(Module)` _link to source_**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents/note.ex){:target="_blank" .sub-list-item}
+* [**4. Integrate with `PhoenixLiveView`**](#step-4)
+> [**Implement `live_session` `on_mount` hook, **](#on-mount-hook){:css .sub-list-item} [ ** `TreeMenuComponent`**](#tree-menu-component){:css .sub-list-item}
 
 <a id="step-1"></a>
 
