@@ -20,19 +20,21 @@ To do this, building a basic tree representing the directories and markdown file
 
 ## Steps
 * [**1. Add structs to represent the menu link nodes:**](#step-1)
-> [**`%Tree{}`**](#tree-struct) & [**`%Slug{}`**](#slug-struct)
+> [**`%Tree{}`, **](#tree-struct){:css .sub-list-item} [**`%Slug{}`**](#slug-struct){:css .sub-list-item}
 * [**2. Map directories and slugs to build a tree structure**](#step-2)
-> [**`Directories Module`**](#directories-module) & [**`TreeOfContents Module`**](#tree-of-contents-module)
+> [**`Directories Module`, **](#directories-module){:css .sub-list-item} [**`TreeOfContents Module`**](#tree-of-contents-module){:css .sub-list-item}
 * [**3. Integrate with `NimblePublisher`**](#step-3)
-> [**`Contents Module`**](#contents-module) & [**`Notes Module` (link to source)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents/note.ex){:target="_blank"}
+> [**`Contents Module`, **](#contents-module){:css .sub-list-item} [ **`Notes Module` (link to source)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/contents/note.ex){:target="_blank" .sub-list-item}
 * [**4. Integrate with `Phoenix LiveView`**](#step-4)
-> [**PreloadDatas `live_session` `on_mount` hook (link to source)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down_web/preload_datas.ex){:target="_blank"} & [**`TreeMenuComponent` (_recursively builds the html unordered list menu_)**](#tree-menu-component)
-
+> [**Implement `live_session` `on_mount` hook, **](#on-mount-hook){:css .sub-list-item} [ **`TreeMenuComponent`**](#tree-menu-component){:css .sub-list-item}
 
 <a id="step-1"></a>
 
 ### 1. Add structs to represent the menu link nodes:
 <a id="tree-struct"></a>
+
+
+<div class="tree-struct"></div>
 
 - [**`%Tree{}`** - _represents a directory to toggle_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/tree.ex){:target="_blank"}
 >```elixir
@@ -49,9 +51,10 @@ To do this, building a basic tree representing the directories and markdown file
 >end
 >```
 
+
 <a id="slug-struct"></a>
 
-- [**`%Slug{}`** - _represents an actual link to a markdown file_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/slug.ex){:target="_blank"}
+- [**`%Slug{}`** - _represents an actual link to a markdown file_](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/directories/slug.ex){:target="_blank"}{:css #slug-code-link}
 >```elixir
 >defmodule MarksDown.Directories.Slug do
 >  @moduledoc """
@@ -90,7 +93,9 @@ To do this, building a basic tree representing the directories and markdown file
 >   end
 >end
 >```
+>
 > [**⬆︎ to Steps**](#steps)
+
 
 <a id="step-2"></a>
 
