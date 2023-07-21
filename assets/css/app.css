@@ -1,0 +1,76 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+@import 'copy-button.css';
+
+/* syntax highlighting */
+@import './makeup.css';
+
+/* tree of contents */
+@import './tree.css';
+
+/* This file is for your main application CSS */
+
+/* dark theme - start */
+html {
+  @apply font-sans text-purp-wht bg-drk-bk;
+}
+
+.disclaimer {
+  @apply mt-10 text-xs leading-5;
+}
+
+ul.note-item > li::after,
+ul.note-item > li::before {
+  display: none;
+}
+
+ul.note-item {
+  @apply pl-0 ml-0;
+}
+
+#raw {
+  @apply leading-8;
+}
+
+#raw h1,
+h2,
+h3 {
+  @apply font-semibold;
+}
+
+#raw h1,
+h2,
+h3 {
+  @apply my-2;
+}
+
+#raw h1 {
+  @apply mb-2 text-3xl;
+}
+#raw h2 {
+  @apply mt-4 text-2xl;
+}
+#raw h3 {
+  @apply text-xl;
+}
+
+#raw p {
+  @apply pb-2;
+}
+
+#raw a {
+  @apply hover:text-light-teal;
+}
+#raw .under {
+  @apply underline;
+}
+
+#raw .sub-list-item {
+  @apply text-xs;
+}
+
+/* dark theme - end */
