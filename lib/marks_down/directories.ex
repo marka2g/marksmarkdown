@@ -20,7 +20,7 @@ defmodule MarksDown.Directories do
     end
   end
 
-  defp ls_regular(path) do
+  def ls_regular(path) do
     cond do
       File.regular?(path) ->
         [path]
@@ -50,10 +50,10 @@ defmodule MarksDown.Directories do
   end
 
   # slug
-  defp add_child([], _slug, root), do: root
+  def add_child([], _slug, root), do: root
 
   # directory
-  defp add_child([parent | rest], slug, root) do
+  def add_child([parent | rest], slug, root) do
     tree =
       case Map.get(root.children, Path.basename(parent)) do
         nil ->
@@ -61,7 +61,7 @@ defmodule MarksDown.Directories do
             id: get_id_from_path(parent),
             name: get_name_from_path(parent),
             path: parent,
-            slugs: get_slugs(parent, slug)
+            slugs: get_slugs_in_dir(parent, slug)
           }
 
         tree ->
@@ -81,7 +81,7 @@ defmodule MarksDown.Directories do
     }
   end
 
-  defp get_slugs(parent, slug) do
+  def get_slugs_in_dir(parent, slug) do
     dir_path = "#{@root_path}#{parent}"
 
     case parent == slug_parent(slug.path) do

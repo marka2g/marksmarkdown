@@ -47,6 +47,8 @@ To accomplish this, a basic tree data structure representing the directories and
 >  alias __MODULE__
 >
 >  defstruct [:id, :name, :path, slugs: [], children: %{}]
+>
+>  #...
 >end
 >```
 
@@ -138,7 +140,7 @@ To accomplish this, a basic tree data structure representing the directories and
 >            id: get_id_from_path(parent),
 >            name: get_name_from_path(parent),
 >            path: parent,
->            slugs: get_slugs_in_dir(parent, slug)
+>            slugs: get_slugs(parent, slug)
 >          }
 >
 >        tree ->
@@ -174,13 +176,13 @@ To accomplish this, a basic tree data structure representing the directories and
 >  """
 >  #...
 >  def build_menu_tree(path \\ @files_path) do
->    children = get_children(path)
->    Directories.map_menu_links(children).children["notes"]
+>    slugs = get_slugs(path)
+>    Directories.map_menu_links(slugs).children["notes"]
 >  end
 >
 >  #...
 >
->  defp get_children(path) do
+>  defp get_slugs(path) do
 >    Enum.map(
 >      Directories.list_files(path),
 >      fn path ->

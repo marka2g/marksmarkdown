@@ -8,12 +8,12 @@ defmodule MarksDown.TreeOfContents do
   @files_path "priv/notes"
 
   def build_menu_tree(path \\ @files_path) do
-    slugs = get_slugs(path)
+    children = get_children(path)
 
-    Directories.map_menu_links(slugs).children["notes"]
+    Directories.map_menu_links(children).children["notes"]
   end
 
-  defp get_slugs(path) do
+  defp get_children(path) do
     Enum.map(
       Directories.list_files(path),
       fn path ->
