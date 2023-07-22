@@ -28,7 +28,7 @@ defmodule MarksDown.Contents do
 
   @notes Enum.sort_by(@notes, &Date.from_iso8601!(&1.date), {:desc, Date})
   @tags @notes |> Enum.flat_map(& &1.tags) |> Enum.uniq() |> Enum.sort()
-  @tree_of_contents TreeOfContents.build_menu_tree()
+  @tree_of_contents TreeOfContents.build_menu()
 
   def all_notes, do: @notes
   def all_tags, do: @tags

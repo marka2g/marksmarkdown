@@ -10,9 +10,9 @@
 
 ## The Quest for [A Second Brain](https://www.buildingasecondbrain.com)
 
-If you're like me, one of your most sinister yet silent adversaries is, ...**`future` `self`**. Albeit pleasurable, spending a significant amount of time on leveling up software engineering skills comes at a cost. I've always longed to effectively summarize and centralize the notes taken along the way. This app is intended to materialize and prime my collection of learned insights for rapid fire recollection by **`future` `self`**.
+If you're like me, one of your most sinister yet silent adversaries is, ...**`future` `self`**. Albeit pleasurable, spending a significant amount of time to level-up software engineering skills comes at a heavy cost. I've always struggled to centralize my software related notes in order to rinse and repeat a particular concept.
 
-Ultimately, I desire to have a second brain that has excellent backlinking capabilities. I love tools like [obsidian](https://obsidian.md) and have recently discovered [mem.ai](https://get.mem.ai), However, I would put these type of note taking apps in the personal category. Even with plugins, there are still some gaps with Obsidian that I won't go into. Sometimes, I just want to highlight and share code examples where I could quickly rinse and repeat a particular concept.
+Like most of us, I desire to build a second brain with excellent back-linking capabilities. I love tools like [Obsidian](https://obsidian.md) and have recently discovered [Mem.ai](https://get.mem.ai), however, these type of note taking apps either feel more like personal tools or lack the organizational &/or presentational features I'm looking for. Even with plugins, feature gaps with these tools currently keep my software notes and highlights a bit too localized for my tastes. This static site is intended to materialize and prime my collection of learned insights for rapid fire recollection by **`future` `self`**.
 
 
 >_**DISCLAIMER** - Feel free to use or copy at will. However, I do not claim any responsibility regarding the completeness of the examples contained as this app's purpose is solely for **self learning**. Often, you will see impartial explanations because the example has been cherry-picked to note an area or concept that requires highlighting. Use the code at your own risk; always test and check what you copy. Thanks!_

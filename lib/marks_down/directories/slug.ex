@@ -1,6 +1,29 @@
 defmodule MarksDown.Directories.Slug do
-  defstruct name: nil, path: nil, file: nil
+  @moduledoc """
+  Data structure that encapsulates
+  a slug(.md) in the file system
+  """
+  alias __MODULE__
+
+  defstruct name: nil, path: nil, file: nil, parent_dir: nil
+
   @ignore_path "priv/"
+
+  def build(path) do
+    %Slug{
+      name: file_name(path) |> String.replace(".md", ".html"),
+      file: file_name(path),
+      parent_dir: path |> String.split("/") |> Enum.drop(-1) |> Enum.join("/"),
+      path: path
+    }
+  end
+
+  defp file_name(path) do
+    path
+    |> String.split("/")
+    |> Enum.take(-1)
+    |> Enum.at(0)
+  end
 
   def parent_dirs(slug) do
     drop_down(from_docs_root(slug.path))

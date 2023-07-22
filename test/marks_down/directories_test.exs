@@ -2,42 +2,12 @@ defmodule MarksDown.DirectoriesTest do
   use ExUnit.Case
   alias MarksDown.Directories
 
-  describe "without slug files" do
-    test "do not appear in the tree menu" do
-      directories_list = [
-        "notes",
-        "empty_dir",
-        "concepts",
-        "cs",
-        "languages",
-        "elixir",
-        "features",
-        "idioms"
-      ]
+  describe "list_slug_files()" do
+    test "does not contain empty directories" do
+      empty_dir_path = "test/support/priv/notes/empty_dir/empty_child"
+      slug_paths = Directories.list_slug_files("test/support/priv/notes")
 
-      refute directories_list == menu_dirs_list("test/support/priv/notes")
+      assert empty_dir_path not in slug_paths
     end
-  end
-
-  def menu_dirs_list(path) do
-    Enum.map(
-      Directories.list_files(path),
-      fn path ->
-        case File.read(path) do
-          {:ok, _data} ->
-            path
-            |> String.split("priv/", parts: 2)
-            |> Enum.at(1)
-            |> String.split("/")
-            |> Enum.drop(-1)
-
-          {:error, _} ->
-            nil
-        end
-      end
-    )
-    |> Enum.uniq()
-    |> Enum.flat_map(& &1)
-    |> Enum.uniq()
   end
 end

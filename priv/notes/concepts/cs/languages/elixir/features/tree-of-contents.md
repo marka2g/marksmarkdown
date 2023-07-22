@@ -15,7 +15,7 @@ That out of the way, this note walks through creating a linkable, file-structure
 
 _Notice that only the directories with markdown files show up in the tree of contents menu._ 
 
-To accomplish this, a basic tree data structure representing the directories and markdown file slugs within those nested directories seemed the correct path to take. The code is a work in progress; there is room for improvements and refinement. Nonetheless, this was a first pass and it's functioning as initially designed. Let's run through some of the important steps to build the Tree Of Contents menu and you can checkout the [source here](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}.
+To accomplish this, a basic tree data structure representing the directories and markdown file slugs within those nested directories seemed like a reasonable approach. The code is a work in progress; there is room for improvements and refinement. Nonetheless, this was a first pass and it's functioning as initially designed. Let's run through some of the important steps to build the Tree Of Contents menu and you can checkout the [source here](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}.
 
 <a id="steps"></a>
 
@@ -44,8 +44,6 @@ To accomplish this, a basic tree data structure representing the directories and
 >  A tree data structure that encapsulates 
 >  a directory in the file system
 >  """
->  alias __MODULE__
->
 >  defstruct [:id, :name, :path, slugs: [], children: %{}]
 >end
 >```
@@ -57,11 +55,30 @@ To accomplish this, a basic tree data structure representing the directories and
 >```elixir
 >defmodule MarksDown.Directories.Slug do
 >  @moduledoc """
->  Data structure that encapsulates 
+>  Data structure that encapsulates
 >  a slug(.md) in the file system
 >  """
->  defstruct name: nil, path: nil, file: nil
+>  alias __MODULE__
+>
+>  defstruct name: nil, path: nil, file: nil, parent_dir: nil
+>
 >  @ignore_path "priv/"
+>
+>  def build(path) do
+>    %Slug{
+>      name: file_name(path) |> String.replace(".md", ".html"),
+>      file: file_name(path),
+>      parent_dir: path |> String.split("/") |> Enum.drop(-1) |> Enum.join("/"),
+>      path: path
+>    }
+>  end
+>
+>  defp file_name(path) do
+>    path
+>    |> String.split("/")
+>    |> Enum.take(-1)
+>    |> Enum.at(0)
+>  end
 >
 >  def parent_dirs(slug) do
 >    drop_down(from_docs_root(slug.path))
@@ -106,31 +123,101 @@ To accomplish this, a basic tree data structure representing the directories and
 >```elixir
 >defmodule MarksDown.Directories do
 >  @moduledoc """
->    Maps the directories and markdown files 
->    to construct a tree data structure
+>  Maps the directories and it's files from the file system
 >  """
 >  alias MarksDown.Directories.{Tree, Slug}
 >
->  #...
+>  @root_path "priv/notes"
+>
+>  def list_slug_files(path \\ @root_path) do
+>    cond do
+>      File.regular?(path) ->
+>        [path]
+>
+>      true ->
+>        list = Path.wildcard(Path.join(path, "/*")) -- [@root_path]
+>
+>        Enum.map(list, fn path -> ls_regular(path) end)
+>        |> List.flatten()
+>    end
+>  end
+>
+>  defp ls_regular(path) do
+>    cond do
+>      File.regular?(path) ->
+>        [path]
+>
+>      File.dir?(path) ->
+>        File.ls!(path)
+>        |> Enum.map(&Path.join(path, &1))
+>        |> Enum.map(&ls_regular/1)
+>        |> Enum.concat()
+>
+>      true ->
+>        []
+>    end
+>  end
+>end
+>```
+> [**⬆︎ to Steps**](#steps)
+
+<a id="tree-of-contents-module"></a>
+
+- [**TreeOfContents Module**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/tree_of_contents.ex){:target="_blank" .under}
+>```elixir
+>defmodule MarksDown.TreeOfContents do
+>  @moduledoc """
+>  Builds the tree menu structure
+>  """
+>  alias MarksDown.Directories
+>  alias MarksDown.Directories.{Tree, Slug}
+>
+>  @root "priv/"
+>  @notes_dir "notes"
 >
 >  @doc """
->    First, sort top level children given as
+>    First, sort top level leaf_slugs given as
 >    parameter by name and then starting with empty tree,
 >    Enum.reduce to map the directories.
 >  """
->  def map_menu_links(children) do
->    children = Enum.sort_by(children, & &1.path, :desc)
+>  def build_menu(path \\ "#{@root}#{@notes_dir}") do
+>    leaves = leaf_slugs(path)
 >
->    Enum.reduce(children, %Tree{}, fn child, root ->
->      add_child(Slug.parent_dirs(child), child, root)
->    end)
+>    Enum.reduce(leaves, %Tree{}, fn leaf, root ->
+>      add_leaf(Slug.parent_dirs(leaf), leaf, root)
+>    end).children[@notes_dir]
 >  end
 >
->  # when [], it's a file/slug
->  defp add_child([], _slug, root), do: root
+>  def leaf_slugs(path) do
+>    Enum.map(
+>      Directories.list_slug_files(path),
+>      fn path ->
+>        case File.read(path) do
+>          {:ok, _data} ->
+>            file_name(path)
+>            Slug.build(path)
 >
->  # when items in list, it's a directory
->  defp add_child([parent | rest], slug, root) do
+>          {:error, _} ->
+>            nil
+>        end
+>      end
+>    )
+>    |> Enum.reject(&is_nil/1)
+>    |> Enum.sort_by(& &1.path, :desc)
+>  end
+>
+>  defp file_name(path) do
+>    path
+>    |> String.split("/")
+>    |> Enum.take(-1)
+>    |> Enum.at(0)
+>  end
+>
+>  # slug
+>  def add_leaf([], _slug, root), do: root
+>
+>  # directory
+>  def add_leaf([parent | rest], leaf, root) do
 >    tree =
 >      case Map.get(root.children, Path.basename(parent)) do
 >        nil ->
@@ -138,15 +225,14 @@ To accomplish this, a basic tree data structure representing the directories and
 >            id: get_id_from_path(parent),
 >            name: get_name_from_path(parent),
 >            path: parent,
->            slugs: get_slugs_in_dir(parent, slug)
+>            slugs: get_slugs_in_dir(parent, leaf)
 >          }
 >
 >        tree ->
 >          tree
 >      end
 >
->    # recurse
->    tree = add_child(rest, slug, tree)
+>    tree = add_leaf(rest, leaf, tree)
 >
 >    %{
 >      root
@@ -155,55 +241,34 @@ To accomplish this, a basic tree data structure representing the directories and
 >            root.children,
 >            Path.basename(parent),
 >            tree
->         )
->      }
->  end
->
->  #...
->end
->```
-> [**⬆︎ to Steps**](#steps)
-
-<a id="tree-of-contents-module"></a>
-
-- [**TreeOfContents Module(_abbreviated_)**](https://github.com/marka2g/marksmarkdown/blob/main/lib/marks_down/tree_of_contents.ex){:target="_blank" .under}
->```elixir
->defmodule MarksDown.TreeOfContents do
->  @moduledoc """
->  Maps the files to slugs links for the tree menu 
->  """
->  #...
->  def build_menu_tree(path \\ @files_path) do
->    children = get_children(path)
->    Directories.map_menu_links(children).children["notes"]
->  end
->
->  #...
->
->  defp get_children(path) do
->    Enum.map(
->      Directories.list_files(path),
->      fn path ->
->        case File.read(path) do
->          {:ok, _data} ->
->            file_name(path)
->            build_slug(path)
->
->          {:error, _} ->
->            nil
->        end
->      end
->    )
->    |> Enum.reject(&is_nil/1)
->  end
->
->  defp build_slug(path) do
->    %Slug{
->      path: path,
->      name: file_name(path) |> String.replace(".md", ".html"),
->      file: file_name(path)
+>          )
 >    }
 >  end
+>
+>  def get_slugs_in_dir(parent, leaf) do
+>    dir_path = "#{@root}#{parent}/"
+>
+>    case parent == slug_parent(leaf.path) do
+>      true ->
+>        File.ls!(dir_path)
+>        |> Enum.filter(&String.contains?(&1, ".md"))
+>        |> Enum.reduce_while([], fn entry, acc ->
+>          if entry |> String.contains?(".md") do
+>            {:cont, acc ++ [entry |> String.replace(".md", ".html")]}
+>          else
+>            {:halt, acc}
+>          end
+>        end)
+>
+>      false ->
+>        []
+>    end
+>  end
+>
+>  defp get_id_from_path(path), do: path_list(path) |> Enum.join("-")
+>  defp get_name_from_path(path), do: path_list(path) |> Enum.at(-1)
+>  defp path_list(path), do: path |> String.split("/")
+>  defp slug_parent(path), do: path_list(path) |> Enum.drop(1) |> Enum.drop(-1) |> Enum.join("/")
 >end
 >```
 >
