@@ -15,11 +15,11 @@ defmodule MarksDown.DirectoriesTest do
         "idioms"
       ]
 
-      refute directories_list == parent_dirs_list("test/support/priv/notes")
+      refute directories_list == menu_dirs_list("test/support/priv/notes")
     end
   end
 
-  def parent_dirs_list(path) do
+  def menu_dirs_list(path) do
     Enum.map(
       Directories.list_files(path),
       fn path ->
