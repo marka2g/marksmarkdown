@@ -73,4 +73,12 @@ h3 {
   @apply text-xs;
 }
 
+#raw .moved-to-livebooks {
+  @apply p-2 mb-12 border-2 border-solid rounded-md border-light-teal;
+}
+
+#raw .moved-to-livebooks a {
+  @apply underline hover:text-light-teal;
+}
+
 /* dark theme - end */

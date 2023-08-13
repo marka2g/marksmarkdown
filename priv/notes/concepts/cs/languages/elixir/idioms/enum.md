@@ -3,7 +3,7 @@
   author: "Mark Sadegi",
   description: "Breaking down the Enum module and it's functions by category",
   tags: ~w(elixir enum),
-  date: "2023-07-16"
+  date: "2022-10-03"
 }
 ---
 
