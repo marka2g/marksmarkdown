@@ -3,7 +3,7 @@
   author: "Mark Sadegi",
   description: "A grouping of various elixir idioms and tips",
   tags: ~w(elixir lists tuples maps structs map_set iex enum),
-  date: "2023-07-11"
+  date: "2022-10-11"
 }
 ---
 
@@ -60,7 +60,7 @@ end
 
 ### _IEx_
 
-default config in **iex.exs**
+example default config in **iex.exs**
 ```elixir
 IEx.configure(
   colors: [
@@ -82,7 +82,6 @@ IEx.configure(
       # and reset to default color
       "\e[0m"
     ]
-    # (1)
     |> IO.chardata_to_string()
 )
 ```

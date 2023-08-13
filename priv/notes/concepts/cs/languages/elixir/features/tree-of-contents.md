@@ -3,7 +3,7 @@
   author: "Mark Sadegi",
   description: "This note describes how I build the auto-generated tree of contents menu",
   tags: ~w(elixir phoenix live_view nimble_publisher trees recursion),
-  date: "2023-07-17"
+  date: "2022-09-17"
 }
 ---
 
