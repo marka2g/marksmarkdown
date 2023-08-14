@@ -9,8 +9,8 @@
 ---
 
 <div class="moved-to-livebooks">
-  Since the release of <a target="blank" href="https://livebook.dev">livebook.dev</a>, I have been progressively moving my notes <a target="blank" href="https://software-engineering-notes.fly.dev">here</a>. Recently, livebook.dev released the <a href="https://news.livebook.dev/deploy-notebooks-as-apps-quality-of-life-upgrades---launch-week-1---day-1-2OTEWI" target="blank">sections button</a> which is making me rethink how I organize my notes.
-</div> 
+  Since the release of <a target="blank" href="https://livebook.dev">livebook.dev</a>, I have been progressively moving my notes <a target="blank" href="https://github.com/marka2g/software-engineering-notes">here</a>. Recently, livebook.dev released the <a href="https://news.livebook.dev/deploy-notebooks-as-apps-quality-of-life-upgrades---launch-week-1---day-1-2OTEWI" target="blank">sections button</a> which is making me rethink how I organize my notes.
+</div>
 
 ## The Quest for A Second Brain
 
