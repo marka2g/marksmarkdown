@@ -3,13 +3,13 @@
   author: "Mark Sadegi",
   description: "The Elevator Pitch",
   tags: ~w(blogging tech-blog software-engineering software-development),
-  date: "2022-09-16"
+  date: "2022-05-16"
 }
 
 ---
 
 <div class="moved-to-livebooks">
-  Since the release of <a target="blank" href="https://livebook.dev">livebook.dev</a>, I have been progressively moving my notes <a target="blank" href="https://software-engineering-notes.fly.dev">here</a>.
+  Since the release of <a target="blank" href="https://livebook.dev">livebook.dev</a>, I have been progressively moving my notes <a target="blank" href="https://software-engineering-notes.fly.dev">here</a>. Recently, livebook.dev released the <a href="https://news.livebook.dev/deploy-notebooks-as-apps-quality-of-life-upgrades---launch-week-1---day-1-2OTEWI" target="blank">sections button</a> which is making me rethink how I organize my notes.
 </div> 
 
 ## The Quest for A Second Brain
