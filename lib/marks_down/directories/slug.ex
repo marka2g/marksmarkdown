@@ -1,14 +1,41 @@
 defmodule MarksDown.Directories.Slug do
   @moduledoc """
-  Data structure that encapsulates
-  a slug(.md) in the file system
+  This module contains the data structure for
+  a slug(.md) in the file system.
   """
-  alias __MODULE__
-
   defstruct name: nil, path: nil, file: nil, parent_dir: nil
 
+  alias __MODULE__
   @ignore_path "priv/"
 
+  @type t :: %__MODULE__{
+          name: String.t(),
+          file: String.t(),
+          parent_dir: String.t(),
+          path: String.t()
+        }
+
+  @spec build(String.t()) :: Slug.t()
+  @doc """
+    Builds a Slug struct based on the provided path.
+
+    This function takes a path and constructs a Slug struct with various attributes extracted from the path. The Slug struct contains information about the name, file, parent directory, and the full path.
+
+    ## Parameters
+    * `path` - The path from which to construct the Slug struct.
+
+    ## Returns
+    A Slug struct containing the extracted attributes.
+
+    ## Example
+        iex> Slug.build("/root/path/to/file.txt")
+        %Slug{
+          name: "file",
+          file: "file.txt",
+          parent_dir: "to",
+          path: "/root/path/to/file.txt"
+        }
+  """
   def build(path) do
     %Slug{
       name: slug_name(path),
