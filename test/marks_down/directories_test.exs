@@ -1,13 +1,31 @@
 defmodule MarksDown.DirectoriesTest do
   use ExUnit.Case
+
   alias MarksDown.Directories
 
-  describe "list_slug_files()" do
-    test "does not contain empty directories" do
-      empty_dir_path = "test/support/priv/notes/empty_dir/empty_child"
-      slug_paths = Directories.list_slug_files("test/support/priv/notes")
+  test "listing slug files from root path" do
+    expected_files = [
+      "priv/notes/concepts/cs/languages/elixir/features/tree-of-contents.md",
+      "priv/notes/concepts/cs/languages/elixir/idioms/enum.md",
+      "priv/notes/concepts/cs/languages/elixir/idioms/elixir-tips.md",
+      "priv/notes/concepts/cs/languages/elixir/memory.md",
+      "priv/notes/elevator-pitch.md"
+    ]
 
-      assert empty_dir_path not in slug_paths
-    end
+    assert Directories.list_slug_files() == expected_files
+  end
+
+  test "listing slug files from a specific path" do
+    expected_files = [
+      "test/support/priv/notes/concepts/cs/languages/elixir/features/tree-of-contents.md"
+    ]
+
+    assert Directories.list_slug_files(
+             "test/support/priv/notes/concepts/cs/languages/elixir/features"
+           ) == expected_files
+  end
+
+  test "listing non-existent path should return an empty list" do
+    assert Directories.list_slug_files("test/support/priv/notes/empty_dir/empty_child") == []
   end
 end
