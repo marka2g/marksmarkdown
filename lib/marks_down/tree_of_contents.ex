@@ -1,6 +1,7 @@
 defmodule MarksDown.TreeOfContents do
   @moduledoc """
-  Builds the tree menu structure
+  This module builds a menu structure based on a
+  given path and a list of leaf slugs.
   """
   alias MarksDown.Directories
   alias MarksDown.Directories.{Tree, Slug}
@@ -8,12 +9,36 @@ defmodule MarksDown.TreeOfContents do
   @root "priv/"
   @notes_dir "notes"
 
+  @spec build_menu(String.t()) :: %Tree{}
   @doc """
-    The entry point build function
-    Given a path as a parameter, sort top level
-    leaf_slugs by name and then,
-    starting with empty tree,
-    Enum.reduce to map the directories.
+  Builds a menu structure based on a given path and list of leaf slugs.
+
+  This function takes a path and a list of leaf slugs as input and constructs a
+  hierarchical menu structure. The menu is represented as a tree with nodes
+  corresponding to directories and leaves corresponding to files.
+
+  ## Parameters
+  * `path` (optional) - The root path where the menu structure starts. If not provided,
+    the default root path will be used, which combines the module's `@root` and `@notes_dir`
+    attributes.
+
+  ## Returns
+  Returns a menu structure represented as a tree.
+
+  ## Example
+
+    iex> TreeOfContents.build_menu("/root/path", ["file1", "file2"])
+      %Tree{
+        children: %{
+          "notes" => %Tree{
+            children: %{
+              "file1" => %Tree{},
+              "file2" => %Tree{}
+            }
+          }
+        }
+      }
+
   """
   def build_menu(path \\ "#{@root}#{@notes_dir}") do
     leaves = leaf_slugs(path)
