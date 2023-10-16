@@ -6,8 +6,8 @@ defmodule MarksDown.DirectoriesTest do
   test "listing slug files from root path" do
     expected_files = [
       "priv/notes/concepts/cs/languages/elixir/features/tree-of-contents.md",
-      "priv/notes/concepts/cs/languages/elixir/idioms/enum.md",
-      "priv/notes/concepts/cs/languages/elixir/idioms/elixir-tips.md",
+      "priv/notes/concepts/cs/languages/elixir/tips/enum.md",
+      "priv/notes/concepts/cs/languages/elixir/tips/elixir-tips.md",
       "priv/notes/concepts/cs/languages/elixir/memory.md",
       "priv/notes/elevator-pitch.md"
     ]
