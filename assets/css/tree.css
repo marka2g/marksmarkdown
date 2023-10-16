@@ -50,6 +50,7 @@ ul li:last-child::after {
   display: none;
 }
 
+/* @apply bg-fuchsia-600 text-neutral-100; */
 ul summary::before {
   position: absolute;
   left: -1.25em;
@@ -61,7 +62,7 @@ ul summary::before {
   text-align: center;
   line-height: 0.9em;
   z-index: 10;
-  @apply bg-fuchsia-600 text-neutral-100;
+  @apply bg-my-pink text-neutral-100;
 }
 
 ul details[open] > summary::before {
@@ -71,8 +72,9 @@ ul details[open] > summary::before {
   @apply bg-my-lime text-neutral-500;
 }
 
+/* @apply p-1 pr-2 my-4 rounded-md text-drk-purp bg-drk-bk hover:bg-drk-hover; */
 .slug {
-  @apply p-1 pr-2 my-4 rounded-md text-light-teal bg-drk-bk hover:bg-drk-hover;
+  @apply p-1 pr-2 my-4 rounded-md text-link-purple bg-drk-bk hover:bg-drk-hover;
 }
 
 /* tree - dark - end */

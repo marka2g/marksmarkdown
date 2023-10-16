@@ -99,6 +99,9 @@ This is not the full list but in general, **Enum** module functions can be broke
 >#  %{language: "Rust", type: :concurrent}
 >#]
 >
+
+* ### `Enum.filter()` [**⬆︎**](#top)
+>```elixir
 ># Enum.filter using a when guard
 >Enum.filter(languages, fn
 >  %{language: lang} when lang in ["Rust", "Ruby"] -> true
@@ -267,7 +270,7 @@ This is not the full list but in general, **Enum** module functions can be broke
 
 <a id="reduce"></a>
 
-* ### `Enum.reduce()` _with MapSet.new()_
+* ### `Enum.reduce()` _with `MapSet.new()`_
 >```elixir
 >guitars
 >|> Enum.reduce(MapSet.new(), fn %{maker: make}, acc ->

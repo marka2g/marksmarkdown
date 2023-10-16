@@ -27,7 +27,7 @@ defmodule MarksDownWeb.Notes.ShowLive do
           </div>
         </div>
         <div class="relative grid grid-cols-2 gap-8 mt-4">
-          <div class="col-span-1 text-sm text-light-teal hover:text-my-green">
+          <div class="col-span-1 text-sm text-link-purple hover:text-link-blue">
             [<.link navigate={~p"/"}>all notes</.link>]
           </div>
         </div>

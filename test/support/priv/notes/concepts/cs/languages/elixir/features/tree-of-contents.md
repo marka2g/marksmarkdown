@@ -252,10 +252,10 @@ To accomplish this, a basic tree data structure representing the directories and
 >                      slugs: ["tree-of-contents.html"],
 >                      children: %{}
 >                    },
->                    "idioms" => %MarksDown.Directories.Tree{
->                      id: "notes-concepts-cs-languages-elixir-idioms",
->                      name: "idioms",
->                      path: "notes/concepts/cs/languages/elixir/idioms",
+>                    "tips" => %MarksDown.Directories.Tree{
+>                      id: "notes-concepts-cs-languages-elixir-tips",
+>                      name: "tips",
+>                      path: "notes/concepts/cs/languages/elixir/tips",
 >                      slugs: ["enum.html", "elixir-tips.html"],
 >                      children: %{}
 >                     }
@@ -382,4 +382,4 @@ To accomplish this, a basic tree data structure representing the directories and
 >
 
 ## Conclusion
-And there you have it, a tree menu that dynamically builds itself as markdown files are added and removed. This read was a bit long even though I attempted to only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!
+And there you have it, a tree menu that dynamically builds itself as markdown files are added and removed from the directory structure. This read was a bit long even though I attempted to only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!

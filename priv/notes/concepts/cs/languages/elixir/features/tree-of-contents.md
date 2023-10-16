@@ -417,4 +417,4 @@ To accomplish this, a basic tree data structure representing the directories and
 >
 
 ## Conclusion
-And there you have it, a tree menu that dynamically builds itself as markdown files are added and removed. This read was a bit long even though I attempted to only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!
+And there you have it, a tree menu that dynamically builds itself as markdown files are added and removed from the directory structure. This read was a bit long even though I attempted to only included the important bits of the feature; be sure to check out the [source](https://github.com/marka2g/marksmarkdown){:target="_blank" .under}. Lastly, iterative improvements will be made as time permits and I will try to keep this note in sync with code changes. Thanks for reading!
