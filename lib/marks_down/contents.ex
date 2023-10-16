@@ -34,9 +34,28 @@ defmodule MarksDown.Contents do
   def all_tags, do: @tags
   def tree_of_contents, do: @tree_of_contents
 
+  def search_notes!(search_string) do
+    all_notes()
+    |> Enum.filter(fn
+      note ->
+        note.slug |> term_contained?(search_string) ||
+          note.description |> term_contained?(search_string) ||
+          note.title |> term_contained?(search_string) ||
+          downcase(note.body) |> term_contained?(downcase(search_string))
+    end)
+  end
+
+  defp downcase(str), do: str |> String.downcase()
+  defp term_contained?(attr, search), do: String.contains?(attr, search)
+
   def get_note_by_slug!(slug) do
     Enum.find(all_notes(), &(&1.slug == slug)) ||
       raise NotFoundError, "Note with slug=#{slug} not found"
+  end
+
+  def get_note_by_title!(title) do
+    Enum.find(all_notes(), &(&1.title == title)) ||
+      raise NotFoundError, "Note with title=#{title} not found"
   end
 
   def get_notes_by_tag!(tag) do

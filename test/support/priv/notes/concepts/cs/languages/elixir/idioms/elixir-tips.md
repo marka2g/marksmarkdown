@@ -1,5 +1,5 @@
 %{
-  title: "My Idiomatic Elixir",
+  title: "Random Tips",
   author: "Mark Sadegi",
   description: "A grouping of various elixir idioms and tips",
   tags: ~w(elixir lists tuples maps structs map_set iex enum),

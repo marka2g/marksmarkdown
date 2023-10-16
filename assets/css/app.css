@@ -63,7 +63,8 @@ h3 {
 }
 
 #raw a {
-  @apply hover:text-light-teal;
+  /* @apply hover:text-light-blue; */
+  @apply hover:text-link-blue;
 }
 #raw .under {
   @apply underline;
@@ -74,11 +75,11 @@ h3 {
 }
 
 #raw .moved-to-livebooks {
-  @apply p-2 mb-12 border-2 border-solid rounded-md border-light-teal;
+  @apply p-2 mb-12 border-2 border-solid rounded-md border-link-purple;
 }
 
 #raw .moved-to-livebooks a {
-  @apply underline hover:text-light-teal;
+  @apply underline hover:text-link-blue;
 }
 
 /* dark theme - end */

@@ -15,7 +15,7 @@ defmodule MarksDownWeb.Notes.IndexLive do
         ALL NOTES
       </h2>
       <ul :for={note <- @notes} class="note-item">
-        <li class="mb-4 hover:text-light-teal">
+        <li class="mb-4 hover:text-link-purple">
           <.link class="block p-6" navigate={~p"/#{note.slug}"}>
             <h3 class="text-xl font-bold">
               <%= note.title %>
