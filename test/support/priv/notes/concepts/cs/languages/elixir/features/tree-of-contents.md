@@ -252,10 +252,10 @@ To accomplish this, a basic tree data structure representing the directories and
 >                      slugs: ["tree-of-contents.html"],
 >                      children: %{}
 >                    },
->                    "idioms" => %MarksDown.Directories.Tree{
->                      id: "notes-concepts-cs-languages-elixir-idioms",
->                      name: "idioms",
->                      path: "notes/concepts/cs/languages/elixir/idioms",
+>                    "tips" => %MarksDown.Directories.Tree{
+>                      id: "notes-concepts-cs-languages-elixir-tips",
+>                      name: "tips",
+>                      path: "notes/concepts/cs/languages/elixir/tips",
 >                      slugs: ["enum.html", "elixir-tips.html"],
 >                      children: %{}
 >                     }
